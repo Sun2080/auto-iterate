@@ -27,6 +27,10 @@
 **Why**: Round 2-5 我攒到 Round 6 才批量写，违反了 iterate.md §1「每轮必产 progress.md 追加」。批量写容易漏、失真、打破「冷启动靠文件重建上下文」原则。
 **How**: 每轮 commit 里必须包含 progress.md 的这一轮条目，和 feature 文件一起提交。不允许只提 feature 不提 progress。
 
+### 用户偏好极简口令，不要长句 prompt
+**Why**: 用户连续反馈「太长了」「必须这么说？」—— 装完后 CLAUDE.md 已挂接，agent 有协议上下文，口令可以短到 2-4 字。
+**How**: 对用户的操作性说明写成表格速查（2-4 字口令 + 场景），解释和理由塞在别处。不要要求用户复读完整 prompt。
+
 ---
 
 ## Decisions
@@ -45,4 +49,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 0/15 · Gotchas 2/10 · Decisions 3/10 · 总行数约 55/200 -->
+<!-- 限额提示：Patterns 0/15 · Gotchas 3/10 · Decisions 3/10 · 总行数约 62/200 -->

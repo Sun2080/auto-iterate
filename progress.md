@@ -147,3 +147,20 @@ GOALS.md · Success Criteria 对照：
 
 refs: agents#progress-md-必须每轮即时追加 · agents#不做-iterate-skill
 
+---
+
+## Round 7 @ 2026-04-21 · README 口令速查表
+
+**Goal**: 用户反馈「`开始迭代。按 .claude/standards/iterate.md 跑...` 太长了」—— 把常用口令浓缩成速查表。
+
+**Modify**:
+- `README.md` · 「给人」段改为 9 条口令速查表（2-4 字短语）
+- `AGENTS.md` · 新 Gotcha「用户偏好极简口令」，限额 3/10 Gotchas
+
+**Verify**: 表格 9 行 · 每条口令 ≤ 16 字 · 原「一句话触发」长 prompt 改短。
+
+**Status**: **Keep**。真实用户反馈驱动的修正，价值高于规划项。
+
+refs: agents#用户偏好极简口令
+
+
