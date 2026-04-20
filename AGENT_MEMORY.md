@@ -18,6 +18,10 @@
 **Why**: 宿主（量化系统）已有 NORTH_STAR / HANDOFF / DECISIONS / LOOP_STATE 一整套；auto-iterate 是客，强求改名会抛弃现成工作流。
 **How**: iterate.md §11 给映射表模板。auto-iterate 四入口是**角色**（目标/时间线/记忆/git），不是硬字面文件名。
 
+### 前几轮强制做一次外部参照
+**Why**: Round 1-8 全闭门造车，Round 9 才查 —— 发现 Anthropic 官方 `~/.claude/agent-memory/<agent>/MEMORY.md` 独立采用「首 200 行加载」，和我们 §4 的 200 行硬上限撞车。早查能早校准术语、少走弯路。
+**How**: iterate.md §1.2：前 3 轮之内搜一次成熟项目/awesome-list。撞车结论记 Decision；新工具记 Pattern；反例记 Gotcha。都带源 URL。
+
 ---
 
 ## Gotchas
@@ -56,4 +60,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 1/15 · Gotchas 4/10 · Decisions 3/10 · 总行数约 75/200 -->
+<!-- 限额提示：Patterns 2/15 · Gotchas 4/10 · Decisions 3/10 · 总行数约 84/200 -->

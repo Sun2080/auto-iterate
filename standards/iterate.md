@@ -38,6 +38,37 @@ enforcement: self + filesystem (AGENT_MEMORY.md / progress log / git commits are
 
 **唯一前置**：`GOALS.md` 若缺，先提示用户写（或用 `templates/GOALS.md.template`）。没有 GOALS 就不要开循环 —— agent 不自创方向。
 
+### 1.2 外部参照（前几轮强制做一次，避免闭门造车）
+
+**前 3 轮之内必做一次**；或 GOALS.md 首次稳定、引入新主题时补做。不做会在 AGENT_MEMORY 膨胀后才发现「别人早有成熟方案」。
+
+**做什么**
+- 搜「与本项目问题相近」的成熟项目 / awesome-list / 近一年论文仓
+- 关键词 = GOALS.md 的核心术语 + 当前年份
+- 只看 README / 设计文档，不啃源码
+- 产出清单：3-5 个 repo + 每个一句「解决什么 · 对我们有用的点」
+
+**工具**
+- `WebSearch` + `WebFetch`（Claude Code 内置）
+- `gh search repos "<keyword>" --sort=stars --limit=10`
+- 优先级：官方最佳实践 > awesome-* 列表 > 近一年高星 repo
+
+**吸收方式**
+- **术语对齐 / 思路吸收** → AGENT_MEMORY.md 一条 Pattern，带源 URL
+- **本轮就要用到的参考** → progress.md 当轮加 `refs: external#<repo>`
+- **撞车验证**（别人独立做到同样结论）→ 是强信号，记一条 Decision 加源
+
+**不要做**
+- ❌ 搜了不吸收、只写「参考过」三个字
+- ❌ 照搬别人架构、默认所有人都该这样
+- ❌ 每轮重搜（token 浪费、结论几乎不变）
+- ❌ 啃源码细节（时间黑洞，收益低）
+
+**跳过条件**
+- 问题非常私域（内部某模块的 bug）
+- 前 2 轮刚做过且结论稳定
+- GOALS 未变且无新主题
+
 ---
 
 ## 2 · 核心循环（AutoResearch 变体）

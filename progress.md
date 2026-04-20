@@ -193,5 +193,41 @@ refs: agents#用户偏好极简口令
 
 refs: memory#宿主可能已有自己的迭代约定 · memory#不要占用社区约定的文件名
 
+---
+
+## Round 9 @ 2026-04-21 · 外部参照制度化
+
+**Trigger**: 用户提醒 —— 前几轮应该去 GitHub 查成熟项目，避免闭门造车。Round 1-8 全是自拍脑袋。
+
+**Goal**: 把「外部参照」写进标准，并当场补课一次。
+
+**Modify**:
+- `standards/iterate.md §1.2`（新增）· 前 3 轮强制搜一次 · 工具 / 吸收方式 / 反模式 / 跳过条件
+- `AGENT_MEMORY.md` · +1 Pattern「前几轮强制做一次外部参照」（带撞车证据）
+
+**外部参照清单**（Round 9 补课 · 搜 "claude code agent memory" + "self-improving LLM agent 2026"）:
+
+| Repo | 解决什么 | 对我们的启发 |
+|------|---------|------|
+| [shanraisshan/claude-code-best-practice](https://github.com/shanraisshan/claude-code-best-practice) | Claude Code 官方最佳实践汇总 | `reports/claude-agent-memory.md` 就是我们 §4 的对应物 |
+| [agentscope-ai/ReMe](https://github.com/agentscope-ai/ReMe) | Agent 记忆管理 kit | 验证「记忆 = 从对话提取偏好和经验」方向 |
+| [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code) | Claude Code skills/hooks/commands 清单 | 宿主想扩能力时的第一查询点 |
+| [aiming-lab/SimpleMem](https://github.com/aiming-lab/SimpleMem) | LLM 长程记忆的语义无损压缩 | 给 30 轮大回归档方法论依据 |
+| [VoltAgent/awesome-ai-agent-papers](https://github.com/VoltAgent/awesome-ai-agent-papers) | 2026 agent 研究论文 curation | 长期跟进信号源，不急用 |
+
+**强撞车验证**: Anthropic 官方 agent memory 方案使用 `~/.claude/agent-memory/<agent>/MEMORY.md`，其中 **MEMORY.md 首 200 行被加载**。和我们 `standards/iterate.md §4.3` 独立推出的「总长 ≤ 200 行硬上限」撞车 —— 同一物理约束（context 预算）下的独立收敛，是强信号。
+
+**Verify**:
+- [x] iterate.md §1.2 写在 §1.1 和 §2 之间，原章节未改
+- [x] AGENT_MEMORY.md 计数 2/15 · 4/10 · 3/10 · ~84/200，仍低于限额
+- [x] 外部参照清单 5 项带可点击源 URL
+- [x] 搜 → 吸收 → 记 的链路走通（§1.2 的「不要」清单全避免）
+
+**Status**: **Keep**。用户反馈驱动的修正。这一轮同时是 §1.2 的首次自演示 —— 制度化的东西当场跑一次证明可操作。
+
+**反思**: 如果 Round 1 就做外部参照，Round 8 的命名冲突（AGENTS.md）可能早 6 轮暴露。制度要前置，不是事后补。
+
+refs: memory#前几轮强制做一次外部参照 · external#shanraisshan/claude-code-best-practice
+
 
 
