@@ -9,53 +9,70 @@
 
 ---
 
+## 给人：一句话触发 agent
+
+把下面这句（或类似意思）丢给你的 Claude Code agent：
+
+> 拉取 https://github.com/Sun2080/auto-iterate 安装到本项目，然后引导我写 GOALS.md。
+
+Agent 会按下面「消费入口」流程执行。
+
+---
+
 ## 如果你是一个 Claude Code agent（消费入口）
 
-用户让你拉取 `https://github.com/Sun2080/auto-iterate` 时，按以下步骤操作。
+用户让你拉取本仓库时，按以下步骤操作。
 
-### Step 1 · 拉文件到宿主项目
+### Step 1 · 拉仓库 + 复制文件到宿主项目
 
-**只拉 `standards/` 下的两份文件**。其它是本项目自身记忆，不拉。
+推荐方式（Windows/Mac/Linux 通用）：
 
-推荐放置位置（任选其一）：
+```bash
+# 1. clone 到临时目录
+git clone --depth 1 https://github.com/Sun2080/auto-iterate /tmp/auto-iterate
 
+# 2. 复制「给宿主用」的两个目录到宿主项目
+mkdir -p .claude/standards
+cp -r /tmp/auto-iterate/standards/* .claude/standards/
+cp -r /tmp/auto-iterate/templates .claude/templates
+
+# 3. 清理
+rm -rf /tmp/auto-iterate
 ```
-<宿主项目>/.claude/standards/code.md
-<宿主项目>/.claude/standards/iterate.md
-```
 
-或者直接放项目根下的 `standards/`。两者等价，挑和宿主项目现有结构最协调的。
+**拉什么**：
+- `standards/code.md` · `standards/iterate.md` —— 两份标准（必须）
+- `templates/GOALS.md.template` · `templates/CLAUDE.md.append` —— 模板（Step 2、3 会用）
+
+**不拉什么**：`GOALS.md` · `AGENTS.md` · `progress.md` —— 这些是 auto-iterate **自身**的记忆，拉进宿主会污染。
+
+Windows 纯 PowerShell 环境下把 `cp -r` 换成 `Copy-Item -Recurse`，其余同。
 
 ### Step 2 · 挂接到宿主 CLAUDE.md
 
-在宿主项目根的 `CLAUDE.md` 里加一段（没有就新建一个）：
-
-```markdown
-## 代码与迭代标准
-
-每次动手前读 `.claude/standards/code.md`（4.7 交互契约 + Karpathy 4 原则）。
-开始迭代循环时读 `.claude/standards/iterate.md`（核心循环 + 复利 + 停止条件）。
-```
+把 `.claude/templates/CLAUDE.md.append` 的内容追加到宿主项目根的 `CLAUDE.md`（没有就新建）。内容已经写好，直接拼接。
 
 ### Step 3 · 建立宿主项目的迭代基建
 
 `iterate.md §10` 要求宿主提供 4 个文件：
 
-| 文件 | 谁写 | 起步状态 |
+| 文件 | 谁写 | 起步动作 |
 |------|------|---------|
-| `GOALS.md` | **必须由人写** | 目标 + 成功判据 |
-| `AGENTS.md` | 人起 · agent 维护 | 可空 或 少量种子条目 |
-| `progress.md` | agent 每轮追加 | 可空 |
-| `tasks.json`（可选） | 人 / agent 共维护 | 可省 |
+| `GOALS.md` | **必须由人写** | 把 `templates/GOALS.md.template` 复制为 `GOALS.md`，**引导用户填写**（逐字段提问，不替人决定） |
+| `AGENTS.md` | agent 维护 | 新建空文件，含反膨胀约束注释（可从 auto-iterate 的 `AGENTS.md` 顶部抄框架） |
+| `progress.md` | agent 追加 | 新建空文件 |
+| `tasks.json`（可选） | 共维护 | 可省 |
 
-`GOALS.md` 没写就不要开始迭代 —— 这是我们「不管目标」的落地点，agent 不自创方向。
+**`GOALS.md` 没填完就不要进循环** —— agent 不自创方向。
 
-### Step 4 · 回报用户
+### Step 4 · 回报用户 + 等信号
 
 安装完成后告诉用户：
-- 两份标准已挂接
-- `GOALS.md` 需要人写（附空模板或引导提问）
-- 写好 GOALS.md 后可以让本 agent（或下一个 agent）按 `iterate.md` 开跑
+1. 两份标准已挂接（路径告知）
+2. `GOALS.md` 模板就位，需要人填 Mission / Success Criteria / Non-Goals / Constraints
+3. 填完后用户说「开始迭代」即可进入 `iterate.md` 的循环
+
+**不要**用户没填 GOALS.md 就自己开始跑 —— 那是 §7 跑偏。
 
 ---
 
