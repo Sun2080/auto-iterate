@@ -19,9 +19,10 @@
 - [x] README 能让新 agent 读完知道 Step 1→4 该做什么
 - [x] AGENTS.md 三种子条目过 §4.1 三闸
 - [x] GOALS.md 标了「待人审」不是硬拍板
-- [ ] git commit 创建（下一步）
+- [x] git commit 创建（`9aa36a5` · root-commit · 6 files · 557 insertions）
+- [x] AGENTS.md 40 行（上限 200，富余充足）
 
-**Status**: Keep 候选。Commit 后本轮闭环。
+**Status**: **Keep**。Round 1 闭环。
 
 **Next Round (Round 2) 候选动作**（micro-goal 下一轮再定）:
 1. `.claude/skills/iterate.md`（可注入 skill，参数化 10/30/6 节奏）
