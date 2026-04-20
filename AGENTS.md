@@ -23,6 +23,10 @@
 **Why**: Round 1 前曾写过 `guides/setup-plugins-and-mcp.md`，用户悄悄删了 —— 信号：不希望把操作手册混进标准库。
 **How**: 不主动恢复 `guides/`。新增任何非 `standards/` 的目录前先问。
 
+### progress.md 必须每轮即时追加，禁止批量
+**Why**: Round 2-5 我攒到 Round 6 才批量写，违反了 iterate.md §1「每轮必产 progress.md 追加」。批量写容易漏、失真、打破「冷启动靠文件重建上下文」原则。
+**How**: 每轮 commit 里必须包含 progress.md 的这一轮条目，和 feature 文件一起提交。不允许只提 feature 不提 progress。
+
 ---
 
 ## Decisions
@@ -41,4 +45,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 0/15 · Gotchas 1/10 · Decisions 3/10 · 总行数约 48/200 -->
+<!-- 限额提示：Patterns 0/15 · Gotchas 2/10 · Decisions 3/10 · 总行数约 55/200 -->
