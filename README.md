@@ -74,6 +74,22 @@ Windows 纯 PowerShell 环境下把 `cp -r` 换成 `Copy-Item -Recurse`，其余
 
 **不要**用户没填 GOALS.md 就自己开始跑 —— 那是 §7 跑偏。
 
+### Step 5 · 如何真的跑起循环
+
+GOALS.md 填完、用户说「开始」后，有两种运行方式：
+
+**手动节拍**（推荐给早期 / 调试）：
+用户每次说「下一轮」时，agent 按 `iterate.md` 跑一轮（Modify → Commit → Verify → Keep/Revert + progress.md 追加）。
+
+**自动节拍**（稳定后可用）：
+用户在 Claude Code 里用 `/loop`：
+```
+/loop 10m 按 .claude/standards/iterate.md 跑下一轮；严格遵守 §6 停止条件
+```
+每 10 分钟触发一轮。`iterate.md §6` 任一停止条件命中会自动停下问人。
+
+**不要自己起 `CronCreate` 或开 `ScheduleWakeup`**。节奏由用户控制，agent 只管好每一轮内部的质量。
+
 ---
 
 ## 如果你是项目维护者（人）

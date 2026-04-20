@@ -31,10 +31,14 @@
 **Why**: `iterate.md` 原本假设「我们」在「宿主」之外；但本项目也要用 iterate.md 迭代自己，角色重叠。
 **How**: 读 iterate.md 时把「宿主」当通用占位符。本项目自身就是第一个宿主（`GOALS.md` / `progress.md` / `AGENTS.md` 放仓库根，非 `standards/` 内）。
 
-### 宿主 agent 只拉 `standards/`，不拉 meta 文件
-**Why**: `GOALS.md` / `progress.md` / `AGENTS.md` 是 auto-iterate 的自身记忆，拉进宿主会污染宿主记忆空间。
-**How**: `README.md` 明确写「只拉 `standards/` 下的文件」。未来新增对宿主有用的文件，放 `standards/` 或 `templates/`，不放根。
+### 宿主 agent 只拉 `standards/` + `templates/`，不拉根 meta 文件
+**Why**: `GOALS.md` / `progress.md` / `AGENTS.md` 是 auto-iterate 自身记忆，拉进宿主会污染。而 `templates/` Round 2 后对宿主有用。
+**How**: `README.md` Step 1 精确列白名单。新增对宿主有用的文件放 `standards/` 或 `templates/`，不放根。
+
+### 不做 `/iterate` skill
+**Why**: Claude Code 原生有 `/loop` / `CronCreate` / `ScheduleWakeup`，包一层是冗余。且 GOALS 明说「不做通用 framework」。
+**How**: README Step 5 直接教用户用 `/loop 10m <prompt>`，agent 不自己起调度。
 
 ---
 
-<!-- 限额提示：Patterns 0/15 · Gotchas 1/10 · Decisions 2/10 · 总行数约 40/200 -->
+<!-- 限额提示：Patterns 0/15 · Gotchas 1/10 · Decisions 3/10 · 总行数约 48/200 -->
