@@ -1,0 +1,30 @@
+<!--
+  把下面这段追加到宿主项目根的 CLAUDE.md 文件末尾。
+  如果没有 CLAUDE.md，就新建一个，只包含这段。
+  标准文件的相对路径按你实际放置的位置调整。
+-->
+
+## 代码与迭代标准（by auto-iterate）
+
+本项目遵循 `auto-iterate` 规范：
+
+- **动手前**读 [.claude/standards/code.md](.claude/standards/code.md) —— Karpathy 4 原则 + Opus 4.7 交互契约
+- **开始迭代循环前**读 [.claude/standards/iterate.md](.claude/standards/iterate.md) —— 核心循环、复利机制、停止条件
+
+### 本项目的迭代记忆
+
+- [GOALS.md](GOALS.md) —— 目标与成功判据（由人维护）
+- [AGENTS.md](AGENTS.md) —— 累积的模式 / 坑 / 决策（agent 维护，≤ 200 行）
+- [progress.md](progress.md) —— 每轮日志（agent 追加）
+
+### 硬约束提醒（从 iterate.md 摘）
+
+- 每轮至少一次 git commit（失败实验也要 commit 再 revert）
+- 先 commit 再 verify
+- 连续 2 轮同错 → 停下问人
+- 每 6 轮做 mini-review + prune AGENTS
+- 每 30 轮大回：产出战报 · 停下等人类
+
+### 不做的事（从本项目 Non-Goals）
+
+见 [GOALS.md · Non-Goals](GOALS.md#non-goals)。Agent 若动了这些，视为跑偏（iterate.md §7），立即 revert。
