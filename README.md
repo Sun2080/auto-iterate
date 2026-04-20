@@ -3,7 +3,7 @@
 一个指导 Claude Code agent「写好代码、高效自我迭代」的轻量知识包。
 
 - **Part 1 · 写好代码** —— Karpathy 4 原则 + Opus 4.7 交互契约 → [`standards/code.md`](standards/code.md)
-- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENTS.md 复利机制 + 多维停止条件 → [`standards/iterate.md`](standards/iterate.md)
+- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 → [`standards/iterate.md`](standards/iterate.md)
 
 不教业务目标、不管基础设施、不做通用 framework。只讲「怎么工作」。
 
@@ -54,7 +54,7 @@ rm -rf /tmp/auto-iterate
 - `standards/code.md` · `standards/iterate.md` —— 两份标准（必须）
 - `templates/GOALS.md.template` · `templates/CLAUDE.md.append` —— 模板（Step 2、3 会用）
 
-**不拉什么**：`GOALS.md` · `AGENTS.md` · `progress.md` —— 这些是 auto-iterate **自身**的记忆，拉进宿主会污染。
+**不拉什么**：`GOALS.md` · `AGENT_MEMORY.md` · `progress.md` —— 这些是 auto-iterate **自身**的记忆，拉进宿主会污染。
 
 Windows 纯 PowerShell 环境下把 `cp -r` 换成 `Copy-Item -Recurse`，其余同。
 
@@ -69,7 +69,7 @@ Windows 纯 PowerShell 环境下把 `cp -r` 换成 `Copy-Item -Recurse`，其余
 | 文件 | 谁写 | 起步动作 |
 |------|------|---------|
 | `GOALS.md` | **必须由人写** | 把 `templates/GOALS.md.template` 复制为 `GOALS.md`，**引导用户填写**（逐字段提问，不替人决定） |
-| `AGENTS.md` | agent 维护 | 新建空文件，含反膨胀约束注释（可从 auto-iterate 的 `AGENTS.md` 顶部抄框架） |
+| `AGENT_MEMORY.md` | agent 维护 | 新建空文件，含反膨胀约束注释（可从 auto-iterate 的 `AGENT_MEMORY.md` 顶部抄框架） |
 | `progress.md` | agent 追加 | 新建空文件 |
 | `tasks.json`（可选） | 共维护 | 可省 |
 
@@ -107,7 +107,7 @@ GOALS.md 填完、用户说「开始」后，有两种运行方式：
 本项目自身也按 `standards/iterate.md` 迭代：
 
 - `GOALS.md` —— 本项目目标
-- `AGENTS.md` —— 本项目的模式/坑/决策
+- `AGENT_MEMORY.md` —— 本项目的模式/坑/决策
 - `progress.md` —— 本项目的迭代日志
 
 这些是**本项目专有**的文件，宿主 agent 拉取时要跳过（见 Step 1）。

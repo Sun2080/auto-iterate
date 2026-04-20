@@ -163,4 +163,35 @@ refs: agents#progress-md-必须每轮即时追加 · agents#不做-iterate-skill
 
 refs: agents#用户偏好极简口令
 
+---
+
+## Round 8 @ 2026-04-21 · 命名避让 + 融入指南
+
+**Trigger**: 真实宿主（量化系统）首次试装，反馈两个冲突：
+- `AGENTS.md` 撞上 Codex/GPT 协作说明（社区 agents.md 约定）
+- 宿主已有 NORTH_STAR / HANDOFF / DECISIONS 自己一套，并存导致双维护
+
+**Goal**: 让 auto-iterate 做一个守规矩的客：不占社区约定名 + 给出融入宿主既有约定的指南。
+
+**Modify**:
+- `git mv AGENTS.md AGENT_MEMORY.md`
+- 全量替换 5 个文件内引用：README / GOALS / AGENT_MEMORY / templates/CLAUDE.md.append / standards/iterate.md
+- `iterate.md §4.5`：refs 前缀 `agents#` → `memory#`（新引用用新前缀；历史 progress 保留 `agents#` 不改写历史）
+- `iterate.md §11`（新增）：融入宿主已有约定 —— 角色映射表 · 整合原则 · CLAUDE.md 映射片段示例 · 反模式
+- `AGENT_MEMORY.md`：加 1 Pattern（映射不替换）+ 1 Gotcha（不占社区约定名）
+
+**Verify**:
+- [x] `grep -r AGENTS.md` 在非 progress.md 文件中应零结果（progress 为历史保留）
+- [x] 8 个文件总行数合理（没失控）
+- [x] iterate.md §11 包含映射表 + 宿主 CLAUDE.md 示例
+
+**Status**: **Keep**。这是首个真实宿主反馈触发的 round，价值高于规划项。
+
+**给宿主的建议**（量化项目这边）:
+- 方案 **甲**：GOALS.md 做一页纸门面链到 NORTH_STAR/ROADMAP；progress.md 做 3-5 行轻量时间线链到 HANDOFF；AGENT_MEMORY.md 收跨轮模式，DECISIONS.md 保留架构决策分工
+- 在宿主 CLAUDE.md 里按 iterate.md §11 的示例格式记一张映射表
+
+refs: memory#宿主可能已有自己的迭代约定 · memory#不要占用社区约定的文件名
+
+
 

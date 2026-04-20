@@ -15,7 +15,7 @@
 - [ ] 读 `README.md` 即可知道下一步（≤ 2 分钟）
 - [ ] 能把 `standards/` 关联到宿主项目的 CLAUDE.md
 - [ ] 能按 `standards/iterate.md` 跑起 `Modify → Commit → Verify → Keep/Revert` 循环
-- [ ] 能维护 `AGENTS.md` 不膨胀（≤ 200 行，35 条上限）
+- [ ] 能维护 `AGENT_MEMORY.md` 不膨胀（≤ 200 行，35 条上限）
 - [ ] 遇到停止条件会停下问人，而非无限重试
 
 ## Non-Goals
@@ -35,4 +35,4 @@
 
 ## 自我迭代契约
 
-本项目也用自己的 `iterate.md` 迭代自己。`AGENTS.md`、`progress.md` 是本项目的迭代记忆，**不要被宿主项目拉走**（README 会说明这点）。
+本项目也用自己的 `iterate.md` 迭代自己。`AGENT_MEMORY.md`、`progress.md` 是本项目的迭代记忆，**不要被宿主项目拉走**（README 会说明这点）。

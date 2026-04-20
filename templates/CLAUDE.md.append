@@ -14,7 +14,7 @@
 ### 本项目的迭代记忆
 
 - [GOALS.md](GOALS.md) —— 目标与成功判据（由人维护）
-- [AGENTS.md](AGENTS.md) —— 累积的模式 / 坑 / 决策（agent 维护，≤ 200 行）
+- [AGENT_MEMORY.md](AGENT_MEMORY.md) —— 累积的模式 / 坑 / 决策（agent 维护，≤ 200 行）
 - [progress.md](progress.md) —— 每轮日志（agent 追加）
 
 ### 硬约束提醒（从 iterate.md 摘）

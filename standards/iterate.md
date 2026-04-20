@@ -2,7 +2,7 @@
 name: iterate-standard
 description: How the agent iterates round after round on the host project. Core loop, memory, cadence, stopping conditions. Load this at the start of every round and at every mini-review.
 audience: host-project agent
-enforcement: self + filesystem (AGENTS.md / progress log / git commits are the iteration state)
+enforcement: self + filesystem (AGENT_MEMORY.md / progress log / git commits are the iteration state)
 ---
 
 # 自我迭代标准
@@ -18,13 +18,13 @@ enforcement: self + filesystem (AGENTS.md / progress log / git commits are the i
 **入（每轮开始必读）**：
 1. `GOALS.md` —— 宿主项目的目标（长期不变）
 2. `progress.md` 末尾 ~20 行 —— 上轮做了什么、结果、下轮计划
-3. `AGENTS.md` —— 累积的模式/坑/决策
+3. `AGENT_MEMORY.md` —— 累积的模式/坑/决策
 4. `git log -10 --oneline` —— 最近 10 次提交
 
 **出（每轮结束必产）**：
 1. 至少一次 git commit（失败的实验也要 commit 再 revert，留下轨迹）
 2. `progress.md` 追加一段：这轮做了什么、验证结果、下轮计划
-3. 若有新的可复用发现 → 更新 `AGENTS.md`（按反膨胀协议，见 §4）
+3. 若有新的可复用发现 → 更新 `AGENT_MEMORY.md`（按反膨胀协议，见 §4）
 
 **硬约束**：没有 commit 的一轮 = 没做事。空转要记录原因而不是装作跑了。
 
@@ -32,7 +32,7 @@ enforcement: self + filesystem (AGENTS.md / progress log / git commits are the i
 
 首轮（Round 1）时入口四文件不存在。此时：
 - 不视为错误，把本轮当 Bootstrap
-- Modify 的首要动作是**创建入口文件**：`GOALS.md`（若 `README.md` 指引人类先写，则等人类）、`AGENTS.md`、`progress.md`
+- Modify 的首要动作是**创建入口文件**：`GOALS.md`（若 `README.md` 指引人类先写，则等人类）、`AGENT_MEMORY.md`、`progress.md`
 - Verify 判据从「指标改善」放宽为「文件存在 + 内容自洽」
 - 首 commit 是 root-commit，Keep 是默认（无 baseline 可比）
 
@@ -83,15 +83,15 @@ Modify → Commit → Verify → Keep / Revert
 | **git 历史** | 每次 commit | 代码变更的权威记录 | 永久 |
 | **`progress.md`** | 每轮一段 | 时间线日志：做了什么、结果、下轮计划 | 追加，不清理 |
 | **`tasks.json`**（可选） | 每任务一项 | 结构化 todo + 状态 | 用户可维护 |
-| **`AGENTS.md`** | 每模式一条 | 跨轮复用的模式 / 坑 / 决策 | 受控 ≤ 200 行 |
+| **`AGENT_MEMORY.md`** | 每模式一条 | 跨轮复用的模式 / 坑 / 决策 | 受控 ≤ 200 行 |
 
 **为什么分四条而不是合一**：粒度不同 → 查询成本不同。找「昨天的代码改动」查 git；找「上轮做了啥」查 progress；找「改这个模块要注意什么」查 AGENTS。合一就只剩一个越来越长的文件，没法定位。
 
 ---
 
-## 4 · AGENTS.md 反膨胀协议
+## 4 · AGENT_MEMORY.md 反膨胀协议
 
-AGENTS.md 是复利的核心，但不加约束就会变垃圾桶。硬规矩：
+AGENT_MEMORY.md 是复利的核心，但不加约束就会变垃圾桶。硬规矩：
 
 ### 4.1 入门三闸（三条全过才写）
 
@@ -119,12 +119,12 @@ AGENTS.md 是复利的核心，但不加约束就会变垃圾桶。硬规矩：
 
 ### 4.4 剪枝（强制）
 
-- **每 6 轮小结时**：执行「prune AGENTS.md」步骤，合并重复、删除已不适用的
+- **每 6 轮小结时**：执行「prune AGENT_MEMORY.md」步骤，合并重复、删除已不适用的
 - **每 30 轮大回时**：更激进地压缩；长期不被引用（下文说明）的转到 `archive/agents-YYYY-MM.md`，不删但移出主文件
 
 ### 4.5 引用追踪（轻量）
 
-每次实际用到某条 AGENTS.md 条目时，在 progress.md 该轮记录里写：`refs: agents#<标题>`。30 轮大回时统计：**连续 30 轮未被引用的条目是归档候选**。
+每次实际用到某条 AGENT_MEMORY.md 条目时，在 progress.md 该轮记录里写：`refs: memory#<标题>`。30 轮大回时统计：**连续 30 轮未被引用的条目是归档候选**。
 
 这避免了「写了没人用」的僵尸条目堆积。
 
@@ -145,10 +145,10 @@ AGENTS.md 是复利的核心，但不加约束就会变垃圾桶。硬规矩：
 按顺序执行，每一步都要产出可见证据：
 
 1. **回顾** —— 读过去 6 轮的 progress.md，总结：做了 X，哪些成功、哪些失败、为什么
-2. **整理** —— AGENTS.md：新发现的模式加进去（过 §4.1 三闸），不合格的剔除
+2. **整理** —— AGENT_MEMORY.md：新发现的模式加进去（过 §4.1 三闸），不合格的剔除
 3. **清理** —— `git status` 看有没有遗漏未提交；检查有没有临时文件、调试 print、死代码应删
 4. **规划** —— 下 6 轮的 micro-goal：一句话锚点 + 拆成 6 个候选动作（不一定全做，但都指向 micro-goal）
-5. **prune AGENTS.md** —— 按 §4.4 执行
+5. **prune AGENT_MEMORY.md** —— 按 §4.4 执行
 
 小回的产出：progress.md 追加一段 `## Mini-Review @ round N` 记录以上 5 项。
 
@@ -157,7 +157,7 @@ AGENTS.md 是复利的核心，但不加约束就会变垃圾桶。硬规矩：
 1. 执行一次小回
 2. **战报**：追加 `## Big-Review @ round N` —— 基线 vs 现状（用指标 / 功能清单）、关键决策、未决问题
 3. **归档**：过去 30 轮 progress 可以压缩为摘要放 `progress-archive/round-<start>-<end>.md`，主 progress.md 只留最近 30 轮
-4. **AGENTS.md 深度剪枝**：按 §4.4 的 archive 规则
+4. **AGENT_MEMORY.md 深度剪枝**：按 §4.4 的 archive 规则
 5. **停下** —— 不开下一轮。等人类说「继续」。
 
 ---
@@ -229,11 +229,52 @@ STOP @ round N · reason: <维度>
 | 文件 | 内容 | 谁写 |
 |------|------|------|
 | `GOALS.md` | 目标 + 成功判据 | **人** |
-| `AGENTS.md` | 初始为空 / 少量种子条目 | 人起 · agent 维护 |
+| `AGENT_MEMORY.md` | 初始为空 / 少量种子条目 | 人起 · agent 维护 |
 | `progress.md` | 初始为空 | agent 每轮追加 |
 | `tasks.json`（可选） | 初始 todo | 人/agent 共同维护 |
 
 **`GOALS.md` 必须由人写**。这是「我们不管目标」的落地点：agent 不自创方向。
+
+---
+
+## 11 · 融入宿主已有约定
+
+§10 的四个文件名**不是硬字面要求，是四个角色**。宿主如果已经有等价文件，**映射不替换**。
+
+### 角色映射表
+
+| 角色 | auto-iterate 默认 | 宿主可能已有 |
+|------|------|------|
+| 目标 | `GOALS.md` | `NORTH_STAR.md` · `ROADMAP.md` · `MISSION.md` |
+| 时间线 | `progress.md` | `HANDOFF.md` · `ITERATION_REPORTS/` · `CHANGELOG.md` |
+| 记忆 | `AGENT_MEMORY.md` | `DECISIONS.md` · `memory/*.md` · 自建 |
+| git | `git log` | `git log`（总是一样） |
+
+### 整合原则
+
+1. **不要让宿主改名**。auto-iterate 是客，不要求主改。
+2. **在宿主 CLAUDE.md 里记一张映射表**（见下方示例），告诉 agent「我们家的 X 对应 auto-iterate 的 Y」。
+3. **协议按映射执行**。iterate.md 说「progress.md 每轮追加」，映射后就是「HANDOFF.md 每轮追加」。
+4. **选一份为主，别两套并维护**。例如 `HANDOFF.md` 做详细交接 + `progress.md` 做 3-5 行轻量时间线；或只用一份，另一份弃。
+
+### 宿主 CLAUDE.md 映射片段（示例）
+
+```markdown
+## auto-iterate 角色映射
+
+| 角色 | 本项目用的文件 |
+|------|------|
+| 目标 | NORTH_STAR.md + ROADMAP.md（GOALS.md 做一页纸门面） |
+| 每轮时间线 | HANDOFF.md（详细） + progress.md（3-5 行/轮，refs 指 HANDOFF） |
+| 跨轮记忆 | AGENT_MEMORY.md（跨轮模式/坑） + DECISIONS.md（架构拍板，单次） |
+```
+
+### 反模式
+
+- ❌ 两套并存、都维护 —— 每轮写两份日志
+- ❌ 要求宿主把 `DECISIONS.md` 改名成 `AGENT_MEMORY.md`
+- ❌ 抛弃宿主已有工作流去迁到 auto-iterate 默认文件
+- ✔ 映射一次，永远生效
 
 ---
 
@@ -243,6 +284,6 @@ STOP @ round N · reason: <维度>
 - [ ] 至少一次 commit（或 experiment commit + revert）？
 - [ ] 跑了对应的验证？
 - [ ] progress.md 追加了本轮记录？
-- [ ] 有新模式要进 AGENTS.md 吗？过了三闸吗？
+- [ ] 有新模式要进 AGENT_MEMORY.md 吗？过了三闸吗？
 - [ ] 这一步对得上 GOALS.md 吗？
 - [ ] 要不要触发停止条件？
