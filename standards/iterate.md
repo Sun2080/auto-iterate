@@ -28,6 +28,16 @@ enforcement: self + filesystem (AGENTS.md / progress log / git commits are the i
 
 **硬约束**：没有 commit 的一轮 = 没做事。空转要记录原因而不是装作跑了。
 
+### 1.1 Round 1 Bootstrap 例外
+
+首轮（Round 1）时入口四文件不存在。此时：
+- 不视为错误，把本轮当 Bootstrap
+- Modify 的首要动作是**创建入口文件**：`GOALS.md`（若 `README.md` 指引人类先写，则等人类）、`AGENTS.md`、`progress.md`
+- Verify 判据从「指标改善」放宽为「文件存在 + 内容自洽」
+- 首 commit 是 root-commit，Keep 是默认（无 baseline 可比）
+
+**唯一前置**：`GOALS.md` 若缺，先提示用户写（或用 `templates/GOALS.md.template`）。没有 GOALS 就不要开循环 —— agent 不自创方向。
+
 ---
 
 ## 2 · 核心循环（AutoResearch 变体）
