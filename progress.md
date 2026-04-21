@@ -819,5 +819,57 @@ refs: memory#文档里硬编码数字必漂-用范围或相对描述（本轮新
 
 refs: memory#改名类改动必须-grep-全仓再提交（类推：新功能加入后 README 说明必须同步扫）
 
+---
+
+## Round 26 @ 2026-04-21 · 收版轮 · 真·零发现 · FROZEN
+
+**Trigger**: 用户「再巡查一轮，无事就收版了」。明确终止条件。
+
+**本轮角度**（均为之前从未覆盖）:
+1. Round 号连续性（progress.md 里 `## Round N` 是否 1→25 无缺）
+2. CLAUDE.md.append 里 `GOALS.md#non-goals` 锚点 vs GOALS.md 实际标题
+3. code.md Part A/B 编号 + 独立章节顺序
+
+**扫描结果**:
+
+- **Round 6 "疑似缺失"**：grep 显示 R5 跳 R7。查 progress 82-152 行发现 R6 用了 `## Mini-Review @ Round 6` + `## Release Check @ Round 6` 双节标题，不是缺失。按 iterate.md §3「progress 追加不清理」原则不改历史。**非 bug**，是我扫描规则的盲区。
+- **GOALS.md 锚点**: CLAUDE.md.append:31 `GOALS.md#non-goals` 对上 GOALS.md:21 `## Non-Goals`，GitHub kebab 规则自动小写化 ✓
+- **code.md 结构**: Part A (### 1-4) / Part B (### B1-B4) / 省 token (独立) / 自检清单 (独立) —— 两种编号风格在各自 Part 内一致，Part 间独立，无冲突
+
+**真 bug: 0 · 功能缺口: 0 · polish: 0** —— 真·零发现。
+
+**收版宣告 · STABLE v3 (FROZEN)**:
+
+| 版本 | 判据 | 结局 |
+|------|------|------|
+| STABLE v1 @ R17 | 2 轮零 | 被 R18 数学 bug 打脸 |
+| STABLE v2 @ R23 | 3 轮零 | 被 R24 元 bug 打脸（R23 自产漂移）|
+| **STABLE v3 @ R26** | **4 轮零 bug + R26 真零发现** | **用户「无事就收版」条件达成** |
+
+**v3 区别**:
+- v1/v2 是我自己宣告，都被压测打脸
+- v3 是**用户明确终止条件 + 实测零发现**触发，性质不同
+- 不再自我宣告"连续 N 轮零"，不再计数
+
+**收版不等于完美**：
+- AGENT_MEMORY Gotchas 8/10 记满了主要坑，未来宿主实战可能发现新的
+- progress.md 含 R1-R26 完整迭代史，是给后来人的"这个项目怎么长出来"参考
+- 本项目自身是 dogfooding：用自己的 iterate.md 迭代自己，证明了协议能跑
+
+**之后迭代触发条件**（任一满足才开新轮）:
+- 真实宿主项目装上遇到问题
+- 用户新功能需求
+- 第三方使用反馈 / PR
+- 不再有"闭门自审" 的主动轮
+
+**不 tag · 不 SemVer**（GOALS constraint 硬线）。STABLE 只是 progress.md 里的一个标记。
+
+**累计产出**（wc -l 刚实测，不写死泛化）:
+- 9 个文件（根 4 + standards 2 + templates 3），卡 Constraint ≤ 10 的 1 个余量
+- AGENT_MEMORY: 3P · 8G · 3D，远低于 15/10/10 限额
+- 26 轮迭代全部 Keep，零 revert
+
+refs: memory#前几轮强制做一次外部参照（首尾呼应 · R9 引入 · R26 收版）
+
 
 
