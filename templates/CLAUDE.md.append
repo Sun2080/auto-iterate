@@ -6,7 +6,11 @@
 
 ## AI 基座 · by auto-iterate
 
-本项目使用 [auto-iterate](https://github.com/Sun2080/auto-iterate) 作为 AI 基座。两种工作模式:
+本项目使用 [auto-iterate](https://github.com/Sun2080/auto-iterate) 作为 AI 基座。
+
+### 交流语言 · 中文优先
+
+和用户对话(回复、澄清、报告、问询)默认**中文**。代码 / 注释 / commit message / 变量命名 / 文档仍按项目既有约定(多数项目英文,按现有代码风格看齐)。
 
 ### 默认 · 有人值守
 
