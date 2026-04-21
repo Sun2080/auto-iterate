@@ -3,7 +3,7 @@
 一个指导 Claude Code agent「写好代码、高效自我迭代」的轻量知识包。
 
 - **Part 1 · 写好代码** —— Karpathy 4 原则 + Opus 4.7 交互契约 → [`standards/code.md`](standards/code.md)
-- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 + 参数化节拍（动态 `/loop` / 固定 `30s`-`20m`） → [`standards/iterate.md`](standards/iterate.md)
+- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 + 参数化节拍（动态 `/loop` / 固定 `1m`-`20m`） → [`standards/iterate.md`](standards/iterate.md)
 
 不教业务目标、不管基础设施、不做通用 framework。只讲「怎么工作」。
 
@@ -51,7 +51,7 @@ Agent 按下面「消费入口」流程执行首装。
 
 | 层 | 什么会停你 |
 |---|---|
-| **工具层**（Claude Code） | 关会话 / 你说「停」/ `/loop` recurring 7 天过期 / `CronDelete <id>` |
+| **工具层**（Claude Code） | 按 `Esc`（最常用，立即停下一轮）/ 关会话 / 你说「停」/ `/loop` recurring 7 天过期 / `CronDelete <id>` |
 | **项目层**（`iterate.md §6`）| 连续 2 轮同错 · 连续 3 轮无 commit · 30 轮大回 · 5 小时 timebox · GOALS 全过 · 预算耗尽 |
 
 **默认啥都不配**，`/loop 下一轮` 就行 —— §6 会在合理的点停下问你，不会一路跑到天荒地老。
@@ -155,7 +155,7 @@ GOALS.md 填完、用户说「开始」后，三种节拍可选（**推荐度递
 ```
 /loop 10m 按 .claude/standards/iterate.md 跑下一轮；严格遵守 §6 停止条件
 ```
-每 X 分钟固定触发。官方是**串行等待 + 跳过补偿**（上一轮没跑完就排队等，不并发；等期间又到 tick 则跳过不补打）—— 不会堆积，但短任务会有空转间隔。周期选择：大任务 5-10m、小任务 1m 或 30s（prompt cache 5min TTL 下短周期几乎全命中，更省 token）。
+每 X 分钟固定触发。官方是**串行等待 + 跳过补偿**（上一轮没跑完就排队等，不并发；等期间又到 tick 则跳过不补打）—— 不会堆积，但短任务会有空转间隔。周期选择：大任务 5-10m、小任务 1m（cron 粒度 1 分钟，`30s` 被官方向上舍入成 `1m`；prompt cache 5min TTL 下 1m 周期几乎全命中，更省 token）。
 
 **三档共性**：`iterate.md §6` 任一停止条件命中都会自动停下问人。
 

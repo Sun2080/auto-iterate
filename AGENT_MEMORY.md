@@ -24,7 +24,7 @@
 
 ### `/loop` 三档 · 按任务规模选，不会堆积
 **Why**: 短任务 `/loop 10m` 浪费 8min 且跨 cache TTL；`/loop Xm` 官方是串行等待+跳 tick 不并发（[scheduled-tasks](https://code.claude.com/docs/en/scheduled-tasks.md)）；动态 `/loop <prompt>`（无参）让 Claude 自调速 1min-1h，是「跑完立即起」最佳形态。
-**How**: 固定周期→大任务 5-10m、小任务 1m/30s（省 cache）；**动态→推荐首选**，无并发隐患；动态用 `ScheduleWakeup` 是 Claude Code 原生，和「agent 不自起 cron」不冲突。
+**How**: 固定周期→大任务 5-10m、小任务 1m（cron 粒度 1 分钟，`30s` 被向上舍入成 `1m`，不是独立档位）；**动态→推荐首选**，无并发隐患；动态用 `ScheduleWakeup` 是 Claude Code 原生，和「agent 不自起 cron」不冲突。
 
 ---
 
@@ -59,8 +59,8 @@
 **How**: 任何改名 / 重命名 / 术语切换，commit 前 `grep -rn "<old>" .` 一遍，历史文件（progress 里的 Round N 记录）除外。跨 standards + templates + README 全扫。
 
 ### 文档里硬编码数字必漂 · 用范围或相对描述
-**Why**: R15 写「Round 2-14 验证」、R18 写「35×3≈150」、R23 写「progress ~640 行」—— 三次同族，都是把会变的数字硬写进文档。R23 明知教训还犯，证明反射不够强。
-**How**: 改用「多轮」「~N 条」「≤ X 行（实测 wc -l）」等泛化；必写死时旁挂 comment「commit 前核对」。分区限额这种数学等式须过一遍算术（15+10+10=35，×3=105）。
+**Why**: R15/R18/R23/R36 四次同族 —— 把会变（或官方不支持）的数字硬写进文档。R36 是 R20 引入 `/loop 30s` 未核官方 cron 粒度（1 分钟），R27 外部参照只 audit 新增未扫 legacy，多轮后才被抓到。
+**How**: 改用「多轮」「~N 条」「≤ X 行（实测 wc -l）」等泛化；必写死时旁挂 comment「commit 前核对」。分区限额这种数学等式须过一遍算术（15+10+10=35，×3=105）。**外部参照（§1.2）不仅查新增，要连带 audit 既有文档**，不然错过继承自上一轮的漂移。
 
 ### 铺信息 ≠ 用户能找到 · 高频口令要零前提 TL;DR
 **Why**: R27+R28 把动态 `/loop` 铺到 6 处（palette · Part 2 intro · Step 4 · Step 5 · iterate.md §5 · AGENT_MEMORY），R29 用户仍问「发什么提示词」—— 铺得再多，埋在表格/段落里就是找不到。
