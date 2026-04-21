@@ -22,6 +22,10 @@
 **Why**: Round 1-8 全闭门造车，Round 9 才查 —— 发现 Anthropic 官方 `~/.claude/agent-memory/<agent>/MEMORY.md` 独立采用「首 200 行加载」，和我们 §4 的 200 行硬上限撞车。早查能早校准术语、少走弯路。
 **How**: iterate.md §1.2：前 3 轮之内搜一次成熟项目/awesome-list。撞车结论记 Decision；新工具记 Pattern；反例记 Gotcha。都带源 URL。
 
+### 短任务用 `/loop 1m`，借 prompt cache 命中
+**Why**: 每轮 <2min 的任务用 `/loop 10m` 浪费 8min 空转；且周期跨过 5min cache TTL，每轮都冷启。`/loop 1m` 反而快轮几乎全命中 cache，token 更省。
+**How**: 按任务规模选周期：大任务 5-10m，小任务 1m 或 30s。不是 agent 自调度，是用户设小一点的 `/loop Xm`。
+
 ---
 
 ## Gotchas
@@ -72,4 +76,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 2/15 · Gotchas 7/10 · Decisions 3/10 · 总行数 75/200 -->
+<!-- 限额提示：Patterns 3/15 · Gotchas 7/10 · Decisions 3/10 · 总行数 79/200 -->

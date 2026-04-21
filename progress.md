@@ -537,5 +537,38 @@ R18 重置计数。下次要连续 R19/R20/R21 全零才能重宣 STABLE。
 
 refs: memory#前几轮强制做一次外部参照
 
+---
+
+## Round 19 @ 2026-04-21 · 快节拍支持 · 不违反"节奏由人控"硬线
+
+**Trigger**: 用户反馈「一轮 1min 做完、等 10min 下一轮不科学」。讨论后定：**不让 agent 自调度**（违反 GOALS + AGENT_MEMORY Decision），改**让用户手里的旋钮能拨更小**。
+
+**Modify**:
+
+**F1** · `README.md` 口令速查表 +1 行：`/loop 1m 下一轮`（短任务 · cache 命中最高）。原表只有 10m / 5m 两档，对 1min 任务档位缺失。
+
+**F2** · `iterate.md §5` 节律表注释追加：「短任务（每轮 <2min）用 `/loop 1m` 甚至 30s —— 借 prompt cache 5min TTL 连续命中比长周期更省（10min 周期每轮都冷启）」。原注释只说「参数化」不说如何选。
+
+**F3** · `AGENT_MEMORY.md` 新 Pattern「短任务用 `/loop 1m`，借 prompt cache 命中」。过 §4.1 三闸 ✓（跨宿主复用 / 非代码可推导 / 非一次性）。
+
+**权衡透明**:
+- **好处**: 1min 任务从"跑 1min + 空转 9min"→"连跑 10 轮"，吞吐 10×；且短周期 cache 全命中，token 更省
+- **保留硬线**: agent 仍不自起 ScheduleWakeup / CronCreate。`/loop Xm` 的 X 由用户设。
+- **替代方案已拒**: 让 agent 自己"一轮接一轮" = 自调度，违反 GOALS non-goals「不做通用 framework」+ 既有 Decision「节奏由用户控制」
+
+**Verify**:
+- [x] README 速查第 9 行（新）= `/loop 1m 下一轮`
+- [x] iterate.md §5 注释含短任务快节拍说明 + cache 机制
+- [x] AGENT_MEMORY Patterns 2→3，计数器实测 79/200，三分区 3/15 · 7/10 · 3/10 在限额
+- [x] 没动 iterate.md §6 或任何 Decision（硬线保持）
+
+**Status**: **Keep**。这是功能改动，不是巡查修 bug。R18 重置的收敛计数不受本轮影响（功能改动轮不计入"连续零 bug"计数）。
+
+**R18 收敛判据更新**: R19 是功能轮，不是巡查轮。R20/R21/R22 若都是 0 bug 0 缺口的巡查轮，才算"连续 3 轮零"。
+
+**下轮计划**: 等用户信号。若继续巡查 → R20；若做新功能 / 用快节拍实战 → 看用户。
+
+refs: memory#短任务用-loop-1m-借-prompt-cache-命中（本轮新增）
+
 
 
