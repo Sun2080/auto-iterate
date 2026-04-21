@@ -22,9 +22,9 @@
 **Why**: Round 1-8 全闭门造车，Round 9 才查 —— 发现 Anthropic 官方 `~/.claude/agent-memory/<agent>/MEMORY.md` 独立采用「首 200 行加载」，和我们 §4 的 200 行硬上限撞车。早查能早校准术语、少走弯路。
 **How**: iterate.md §1.2：前 3 轮之内搜一次成熟项目/awesome-list。撞车结论记 Decision；新工具记 Pattern；反例记 Gotcha。都带源 URL。
 
-### 短任务用 `/loop 1m`，借 prompt cache 命中
-**Why**: 每轮 <2min 的任务用 `/loop 10m` 浪费 8min 空转；且周期跨过 5min cache TTL，每轮都冷启。`/loop 1m` 反而快轮几乎全命中 cache，token 更省。
-**How**: 按任务规模选周期：大任务 5-10m，小任务 1m 或 30s。不是 agent 自调度，是用户设小一点的 `/loop Xm`。
+### `/loop` 三档 · 按任务规模选，不会堆积
+**Why**: 短任务 `/loop 10m` 浪费 8min 且跨 cache TTL；`/loop Xm` 官方是串行等待+跳 tick 不并发（[scheduled-tasks](https://code.claude.com/docs/en/scheduled-tasks.md)）；动态 `/loop <prompt>`（无参）让 Claude 自调速 1min-1h，是「跑完立即起」最佳形态。
+**How**: 固定周期→大任务 5-10m、小任务 1m/30s（省 cache）；**动态→推荐首选**，无并发隐患；动态用 `ScheduleWakeup` 是 Claude Code 原生，和「agent 不自起 cron」不冲突。
 
 ---
 
@@ -80,4 +80,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 3/15 · Gotchas 8/10 · Decisions 3/10 · 总行数 83/200 -->
+<!-- 限额提示：Patterns 3/15 · Gotchas 8/10 · Decisions 3/10 · 总行数实测 wc -l -->
