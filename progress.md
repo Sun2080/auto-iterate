@@ -973,5 +973,66 @@ refs: memory#`/loop` 三档 · 按任务规模选，不会堆积
 
 refs: memory#用户偏好极简口令，不要长句 prompt（同族：用户对「容易找到、容易复制」有高要求）
 
+---
 
+## Big-Review @ Round 30 · 大回战报
+
+**Trigger**: R30 节点触发 `iterate.md §5.2` 大回协议（小回 + 战报 + 归档 + 深度剪枝 + 停下）。用户指令 `/loop 下一轮` 进入 R30，首动作是大回不是常规 Modify。
+
+### 小回（5 步 · §5.1）
+
+1. **回顾 R1-R29**: 三段弧 —— 骨架 R1-R8 / audit 闭环 R9-R16 / 三进三退 STABLE R17-R26 / 真实驱动 R27-R29（详见 `progress-archive/round-1-30.md` 导览快照）
+2. **整理 AGENT_MEMORY**: R29 Gotcha 候选 evaluate 通过 §4.1 三闸 → 入 Gotchas 9/10（「铺信息 ≠ 用户能找到」）
+3. **清理**: `git status` clean · 未追踪 0 · 无临时/调试代码 · 9 commits ahead of origin（待用户决定推 / 不推）
+4. **规划下 6 轮**: **不规划**。R26 收版后用户明确终止自触发；下 6 轮触发条件见战报末段
+5. **prune**: 8 条现 Gotchas 全数有效无重复无过时；3P/3D 同样健康；不做裁剪
+
+### 战报正文
+
+详见 [progress-archive/round-1-30.md](progress-archive/round-1-30.md) —— 5 节结构：
+
+- **基线 vs 现状** 表（文件数 4→10 · AGENT_MEMORY 0→3P/9G/3D · 30 轮全 Keep 0 revert）
+- **关键决策**（Decisions 3 条汇总）
+- **未决问题 / 下一阶段触发条件**（真实宿主装用缺口 · 动态 `/loop` 实战体感 · 停止分支无真触发）
+- **反模式复盘**（三次打脸的元教训）
+- **归档决定**（主 progress.md 不裁剪，本文件保留 R1-R30 完整记录；archive 只做导览快照）
+
+### 归档产出
+
+- **新增** [progress-archive/round-1-30.md](progress-archive/round-1-30.md) · 一页纸压缩摘要，给后来者 5min 扫清 30 轮脉络
+- **主 progress.md 不裁剪**: 977 行尚未过载，下次大回（R60）若过长再裁；届时写作模板已有（archive 文件本身）
+
+### AGENT_MEMORY 深度剪枝结论
+
+- Patterns 3/15 · **Gotchas 9/10**（新增 R29）· Decisions 3/10
+- 全量条目在 progress.md 可搜到引用（§4.5 引用追踪 30 轮阈值未达归档线）
+- **不 archive 任何条目** —— 现状合格
+
+### §5.2 点 5：停下
+
+**按协议不开下一轮 —— 不 `ScheduleWakeup`**。等用户信号：
+- `继续` / `开下一轮` → 回到真实驱动模式（R27 起的模式）
+- 真实宿主装用遇问题 → 对应问题单独起一轮
+- 新功能诉求 / PR 反馈 → 触发对应轮
+
+**Verify**:
+- [x] `progress-archive/round-1-30.md` 创建（压缩摘要 · 98 行 · 五节齐全）
+- [x] `AGENT_MEMORY.md` 新增 R29 Gotcha + footer 限额注释 8/10 → 9/10
+- [x] 主 progress.md 追加本 Big-Review 段
+- [x] `git status` 验证待提交：3 files (AGENT_MEMORY + progress + archive/new)
+- [x] 不触发 `ScheduleWakeup`（退出 `/loop` 动态模式）
+
+**Status**: **Keep**。Round 30 大回闭环。
+
+**意义**:
+- 本轮是第一次「大回触发」实跑 —— 验证了 §5.2 协议可操作（5 步清单 + 不下一轮）
+- 和 R26 STABLE v3 区别：R26 是「真零发现 → FROZEN」（闭循环收版），R30 是「大回节点强制停 → 等人」（节律终点）。两种停下，语义不同，都合规
+- 30 轮全 Keep / 0 revert 的事实，一半是项目顺 / 一半是 dogfooding 没遇到真对抗；真实宿主装用才是下阶段的"真试金石"
+- 停止条件（§6）30 轮大回终点分支在本轮首次真触发 —— `iterate.md §6` 表格第一行「30 轮 → 按 §5.2 停」不再是理论
+
+**下一轮触发**: 用户 `继续` / 新真实诉求 / 宿主反馈。agent 不自起下一轮。
+
+refs: memory#前几轮强制做一次外部参照 · memory#`/loop` 三档 · memory#铺信息 ≠ 用户能找到（三条共同定义「真实驱动 > 自审」的元模式）
+
+---
 
