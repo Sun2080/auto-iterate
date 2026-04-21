@@ -70,8 +70,8 @@ rm -rf /tmp/auto-iterate
 
 | 文件 | 谁写 | 起步动作 |
 |------|------|---------|
-| `GOALS.md` | **必须由人写** | 把 `templates/GOALS.md.template` 复制为 `GOALS.md`，**引导用户填写**（逐字段提问，不替人决定） |
-| `AGENT_MEMORY.md` | agent 维护 | 复制 `templates/AGENT_MEMORY.md.template` 为宿主根的 `AGENT_MEMORY.md`（已含反膨胀约束 + 三分区空壳） |
+| `GOALS.md` | **必须由人写** | 把 `.claude/templates/GOALS.md.template` 复制为 `GOALS.md`，**引导用户填写**（逐字段提问，不替人决定） |
+| `AGENT_MEMORY.md` | agent 维护 | 复制 `.claude/templates/AGENT_MEMORY.md.template` 为宿主根的 `AGENT_MEMORY.md`（已含反膨胀约束 + 三分区空壳） |
 | `progress.md` | agent 追加 | 新建空文件 |
 | `tasks.json`（可选） | 共维护 | 可省 |
 

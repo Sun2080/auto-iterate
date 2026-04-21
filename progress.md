@@ -452,5 +452,44 @@ refs: memory#改名类改动必须-grep-全仓再提交
 
 refs: memory#前几轮强制做一次外部参照（类推：收敛判据）
 
+---
+
+## Round 17 @ 2026-04-21 · 第 5 次巡查 · STABLE 宣告
+
+**Trigger**: R16 说「R17 若零真问题 → release」。本轮 0 bug + 0 缺口 + 1 类 polish（路径前缀不一致）→ 满足判据。
+
+**Modify**:
+
+**P1** · README Step 3 表两行：`templates/GOALS.md.template` → `.claude/templates/GOALS.md.template`，`templates/AGENT_MEMORY.md.template` → `.claude/templates/...`。Step 2 用全路径、Step 3 用短路径不一致。
+
+**P2** · `iterate.md §1.1` Bootstrap 里 `templates/GOALS.md.template` 改为 Markdown link `[../templates/GOALS.md.template]`。相对路径 `..` 在 auto-iterate 自身（standards/ 下）和宿主（.claude/standards/ 下）两种场景都成立。比写死前缀更通用。
+
+**未改**: `README.md:57`「拉什么」清单里的 `templates/X` 不带 `.claude/` —— 那是描述**源仓库**内文件（被拉时的源路径），不是目标路径，保留正确。`progress.md` 里历史轮记录也不改。
+
+**Verify**:
+- [x] Step 2 / Step 3 路径风格一致（全 `.claude/templates/`）
+- [x] iterate.md 改动在 auto-iterate 自身 Round 1 能 resolve（standards/ → ../templates/ = 根下 templates/）
+- [x] 改动在宿主场景也能 resolve（.claude/standards/ → ../templates/ = .claude/templates/）
+
+**Status**: **Keep**。
+
+---
+
+### 收敛判据达成 · STABLE 宣告
+
+| Round | 真 bug | 功能缺口 | polish |
+|------|-------|---------|--------|
+| R15 | 0 | **1** (Step 3 矛盾) | 4 |
+| R16 | 0 | 0 | 2 |
+| R17 | 0 | 0 | 2 |
+
+**判据**（R16 定）：真 bug + 功能缺口 连续 2 轮零 → STABLE。**达成**（R16 + R17 各零）。
+
+Polish 级漂移（路径前缀、计数器、索引）每轮都可能冒头，这是文档工程常态，不作 release blocker。
+
+**下一步**: 不再主动开巡查轮。等用户新需求 / 反馈触发下一轮迭代。
+
+refs: memory#前几轮强制做一次外部参照（类推：收敛判据的闭环）
+
 
 

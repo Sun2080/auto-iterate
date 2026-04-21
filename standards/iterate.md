@@ -55,7 +55,7 @@ enforcement: self + filesystem (AGENT_MEMORY.md / progress log / git commits are
 - Verify 判据从「指标改善」放宽为「文件存在 + 内容自洽」
 - 首 commit 是 root-commit，Keep 是默认（无 baseline 可比）
 
-**唯一前置**：`GOALS.md` 若缺，先提示用户写（或用 `templates/GOALS.md.template`）。没有 GOALS 就不要开循环 —— agent 不自创方向。
+**唯一前置**：`GOALS.md` 若缺，先提示用户写（或用 [`../templates/GOALS.md.template`](../templates/GOALS.md.template)）。没有 GOALS 就不要开循环 —— agent 不自创方向。
 
 ### 1.2 外部参照（前几轮强制做一次，避免闭门造车）
 
