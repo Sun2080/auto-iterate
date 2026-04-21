@@ -66,6 +66,10 @@
 **Why**: R27+R28 把动态 `/loop` 铺到 6 处（palette · Part 2 intro · Step 4 · Step 5 · iterate.md §5 · AGENT_MEMORY），R29 用户仍问「发什么提示词」—— 铺得再多，埋在表格/段落里就是找不到。
 **How**: 高频口令（`/loop 下一轮`、`下一轮`）在 README 首屏独立代码块 5s 可见；速查表是给已上手的人查细分，不是新用户找入口用。新增重要入口先问「零前提用户第一屏能不能看到」，而不是「散点覆盖够不够」。
 
+### revert 是强负反馈 · 扩张变更先过 GOALS 三闸
+**Why**: R31-old（dual-stack +219 行/8 文件）+ R32-old（USAGE.md +411 行新文件）连续 2 次被用户 revert —— 同族错「扩 scope」，违反 GOALS「文件 ≤10 / 不做平台适配 / 不做通用 framework」。再犯即触发 §6「2 轮同错」停。
+**How**: 单轮 ≥ +100 行或新文件前，对照 `GOALS.md § Non-Goals/Constraints` 三闸；`git log -10` 出现 revert 就 `git show <sha>` 读原改动，把「不做什么」落进本轮 progress / memory 再动手。
+
 ---
 
 ## Decisions
@@ -84,4 +88,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 3/15 · Gotchas 9/10 · Decisions 3/10 · 总行数实测 wc -l -->
+<!-- 限额提示：Patterns 3/15 · Gotchas 10/10（触顶·下次新加需先 prune）· Decisions 3/10 · 总行数实测 wc -l -->

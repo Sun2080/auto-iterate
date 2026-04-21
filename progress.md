@@ -1036,3 +1036,42 @@ refs: memory#前几轮强制做一次外部参照 · memory#`/loop` 三档 · me
 
 ---
 
+## Round 31 · 吸收两次 revert · Gotchas 触顶
+
+**Trigger**: 用户 `/loop 下一轮` 入真实驱动；`git log -10` 里最新两条就是真实信号 —— R30 大回 STOP 后曾尝试过两轮都被回滚：
+
+- `4c3a0bc` R31-old「Claude/Codex dual-stack · decouple standards from platform adapters」(+219 / −101 / 8 文件) → **revert** `c09a612`
+- `5cd7cf2` R32-old「add usage guide · clarify continuous vs timed automation」(USAGE.md +411 新文件) → **revert** `ab10e8c`
+
+两者同族：**扩 scope**，违反 GOALS 三条硬线 ——「文件数 ≤ 10」「不做 Windows/Mac/Linux 适配逻辑」「不做通用 agent framework」。此前 AGENT_MEMORY「用户偏好精简文件结构」（R1 种子）已预警过类似坑（早年 `guides/` 被悄悄删），但未 gate 具体阈值（+100 行 / 新文件），所以重复发生。
+
+**Modify**: 只改 `AGENT_MEMORY.md`。新增一条 Gotcha（9/10 → **10/10**，触顶）：
+
+> **revert 是强负反馈 · 扩张变更先过 GOALS 三闸**
+> Why: R31-old +219 行/8F 与 R32-old +411 行/新文件连续被 revert，同族违反文件数 / 平台适配 / framework 三约束；再犯触 §6「2 轮同错」停。
+> How: 单轮 ≥ +100 行或新文件前，对照 GOALS § Non-Goals/Constraints 三闸；`git log -10` 发现 revert 就 `git show` 读原改动，把「不做什么」落进 progress / memory 再动手。
+
+footer 限额注释同步：`Gotchas 9/10` → `Gotchas 10/10（触顶·下次新加需先 prune）`。
+
+**Verify**:
+- [x] §4.1 三闸：① 非代码可推导（流程规则） ② 跨轮复用（任何扩张轮都能用） ③ code.md 未覆盖（code.md 管单次编辑标准，不讲 revert 吸收）
+- [x] §4.2 格式：标题 + Why 一行 + How 一行，符合「每条 ≤ 3 行」
+- [x] §4.3 限额：Gotchas 10/10 正好触顶 · 总行数 `wc -l` ≤ 200
+- [x] §7 跑偏检查：本轮归属 GOALS 的 "自我迭代契约" —— 吸收真实反馈、防止同错复发
+- [x] git 历史可追溯：四个 sha 都在 `git log -10` 可见
+
+**Status**: Keep.
+
+**意义**:
+- 继 R29「铺信息 ≠ 用户能找到」之后，封顶「文档/功能扩张」的两类同族坑 —— 一条管入口可见度，一条管 scope 闸
+- Gotchas **10/10** 触顶：本项目的「坑仓」第一次满格。下一条新坑来之前，必须先 prune / 合并 —— 这是 §4.4 剪枝协议的首次真触发触发条件之一
+- §7 跑偏检测首次由**外部**（用户 revert）执行，而非 agent 自检。说明真实驱动模式下「用户 revert」= 停止条件的一个隐式维度，值得纳入 §6 表（下轮候选小改）
+
+**下一轮触发**: 继续真实驱动。候选（低优先级、等真信号才做）：
+- §6 停止条件表补一行「用户 revert 当轮 commit → 立即停 + 吸收」
+- AGENT_MEMORY 触顶后的 prune 演练（目前无需，但首次触顶宜留演练机会）
+
+refs: memory#用户偏好精简文件结构 · memory#铺信息 ≠ 用户能找到 · memory#改名类改动必须 grep 全仓再提交（三条同族：扩散 / 可见度 / 收敛性自检）
+
+---
+
