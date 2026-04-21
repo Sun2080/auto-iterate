@@ -349,7 +349,38 @@ refs: memory#前几轮强制做一次外部参照 · external#shanraisshan/claud
 
 **R12+R13 合并效果**: 5 bug/强功能暴露 + 4 优化 = 9 处改动，涉及 5 个文件，0 新文件，0 破坏性改动。标准文件（code.md + iterate.md）合计 +~20 行，AGENT_MEMORY 零增长。
 
-refs: memory#\u5bbf\u4e3b-agent-\u53ea\u62c9-standards-templates-\u4e0d\u62c9\u6839-meta-\u6587\u4ef6
+refs: memory#宿主-agent-只拉-standards-templates-不拉根-meta-文件
+
+---
+
+## Round 14 @ 2026-04-21 · 二次巡查 · 3 bug + 2 小优化
+
+**Trigger**: 用户「再巡查一轮」。R12 改名扫漏了两处，R13 我手粘了 Unicode 转义。
+
+**Modify**:
+
+**P1** · `standards/iterate.md:144` —— 「查 AGENTS」→「查 AGENT_MEMORY」。Round 8 改名的第二处漏网（R12 改了 CLAUDE.md.append 的 `prune AGENTS`，没扫 iterate.md 正文）。
+
+**P2** · `standards/iterate.md:179` —— `archive/agents-YYYY-MM.md` → `archive/agent-memory-YYYY-MM.md`。归档路径和主文件名对齐，未来 30 轮大回时不会又一处改名。
+
+**P3** · `progress.md:352` —— Round 13 的 refs 行 `\u5bbf\u4e3b...` 是字面 Unicode 转义串，恢复成中文「memory#宿主-agent-只拉-standards-templates-不拉根-meta-文件」。我当时 Edit 用了 UTF-8 码点代替真字，工具层面不转义导致原样写入。
+
+**O1** · `README.md:40` —— 「推荐方式（Windows/Mac/Linux 通用）」自相矛盾（61 行说非 git-bash 要自适配）。改为「git-bash / 类 Unix shell 下可直接跑；其他 shell 见本段末尾」。
+
+**O2** · `standards/iterate.md` TL;DR 深读索引 +「§1.1 Bootstrap」。新 agent 首轮读 §1 可能错过 Bootstrap 例外，现在索引里显式。
+
+**Verify**:
+- [x] `grep -n AGENTS standards/iterate.md` 应零结果
+- [x] `grep -n "archive/agents" .` 应零结果
+- [x] `grep -n "\\\\u5" progress.md` 应零结果（Unicode 转义根除）
+- [x] README:40 和 61 行现在不冲突
+- [x] TL;DR 索引含 §1.1
+
+**Status**: **Keep**。4 处都属于「改名/手滑」类低风险修复，1 处（O2）是索引补全。
+
+**审计教训** → 加一条 Gotcha：**改名类改动必须 grep 全仓库，不是只改首处**。
+
+refs: memory#改名类改动必须-grep-全仓再提交（本轮新增）
 
 
 

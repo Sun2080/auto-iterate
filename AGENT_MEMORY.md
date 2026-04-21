@@ -50,6 +50,10 @@
 **Why**: Claude prompt cache 5 min TTL；连续多轮跑过 5 min 就冷启，iterate.md §9「无状态但迭代」就是这条的前提。主动 /compact 把历史压成摘要 + 下一轮靠文件重建 = 省 token 最大杠杆。
 **How**: 6 轮小回（§5.1）结束时默认 /compact；或单轮跑超 5 min 时预防性 compact。不要等 context 告警才做。
 
+### 改名类改动必须 grep 全仓再提交
+**Why**: Round 8 把 AGENTS.md 改为 AGENT_MEMORY.md，前后共发现 **3 批残留**（R8 未扫净、R12 扫到 1 处、R14 又扫到 2 处 + 归档路径）。首处改完就自信、不全仓扫 = 坑自己。
+**How**: 任何改名 / 重命名 / 术语切换，commit 前 `grep -rn "<old>" .` 一遍，历史文件（progress 里的 Round N 记录）除外。跨 standards + templates + README 全扫。
+
 ---
 
 ## Decisions
@@ -68,4 +72,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 2/15 · Gotchas 6/10 · Decisions 3/10 · 总行数 71/200 -->
+<!-- 限额提示：Patterns 2/15 · Gotchas 7/10 · Decisions 3/10 · 总行数 76/200 -->

@@ -37,7 +37,7 @@ Agent 按下面「消费入口」流程执行首装。
 
 ### Step 1 · 拉仓库 + 复制文件到宿主项目
 
-推荐方式（Windows/Mac/Linux 通用）：
+推荐方式（git-bash / 类 Unix shell 下可直接跑；其他 shell 见本段末尾说明）：
 
 ```bash
 # 1. clone 到临时目录
