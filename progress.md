@@ -287,5 +287,37 @@ refs: memory#每轮只读-iterate-md-的-tldr · memory#长循环里主动-compa
 
 refs: memory#用户偏好极简口令-不要长句-prompt
 
+---
+
+## Round 12 @ 2026-04-21 · 逐字审计 · bug 修复 + 隐藏强功能暴露
+
+**Trigger**: 用户要求逐行逐字审全项目，debug + 补隐藏强功能。审计清单已在对话里列出，分 2 轮执行。本轮处理 bug 和「功能已装但 standards 未暴露」类问题。
+
+**Modify**:
+
+**B1 (bug)** · `templates/CLAUDE.md.append:25` —— `prune AGENTS` → `prune AGENT_MEMORY`。Round 8 改名时漏改，宿主装上会找错文件名。
+
+**H1 (Context7 MCP 暴露)** · `standards/code.md §B1` 末尾 +1 行 —— 库/API 问题优先 `mcp__context7__resolve-library-id` → `query-docs`，不要凭记忆推测避免幻觉。
+
+**H2 (Playwright MCP 强化)** · `standards/iterate.md §2.3 Verify` —— 把「用 Playwright MCP 真跑一下」扩成三步最小组合（navigate → snapshot → console_messages），并明说「编译过 + 类型过 ≠ UI 可用」。
+
+**H3 (prompt cache 策略)** · `standards/code.md §省 token 操作守则` +2 条 —— (a) 不变大文件放会话前部吃 cache；(b) 跑过 5min 主动 /compact。和 AGENT_MEMORY Round 10 的 Gotcha 互引不重复。
+
+**H4 (/schedule 用于大回后续跑)** · `standards/iterate.md §6` 停止条件后 +1 段 —— 30 轮停顿后**用户**可用 `/schedule` 注册 cron。强调 agent 不自己起，节奏由人控。
+
+**Verify**:
+- [x] B1 grep `prune AGENTS` 在 templates/ 应零结果
+- [x] H1 code.md B1 从 4 条变 5 条，新条带具体 MCP 工具名
+- [x] H2 iterate.md §2.3 从 1 行变 6 行（navigate/snapshot/console_messages + 警句）
+- [x] H3 省 token 守则从 5 条变 7 条（cache + compact）
+- [x] H4 §6 停止消息 + 1 段 /schedule 说明，不改原停止表
+- [x] 5 个改动不破坏任何既有交叉引用
+
+**Status**: **Keep**。B1 是真 bug（改名漏网），H1-H4 是「装了没用上」的强功能显式化，每条都锚 MCP 工具名或 slash command，避免含糊。
+
+**下轮 (R13)**: README 结构整理 · AGENT_MEMORY 计数修正 · code.md↔iterate.md 交叉引用。
+
+refs: memory#前几轮强制做一次外部参照 · external#shanraisshan/claude-code-best-practice
+
 
 

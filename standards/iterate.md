@@ -115,7 +115,11 @@ Modify → Commit → Verify → Keep / Revert
 每个 commit 都有对应的**机械验证**：
 - 测试通过 / 编译通过 / lint 通过
 - 目标指标改善（例如延迟、准确率、错误数）
-- 对 UI 改动：用 Playwright MCP 真跑一下
+- **UI / 前端改动**：用 Playwright MCP 真跑。最小三连：
+  - `browser_navigate` 到改动页
+  - `browser_snapshot` 看 DOM 结构
+  - `browser_console_messages` 看有无 runtime error
+  编译过 + 类型过 ≠ UI 可用。4.7 有时会吐能编译但交互坏的代码 —— 必须跑。
 
 **不写验证 = 任务未完成**。见 [code.md](code.md) Part A §4。
 
@@ -235,6 +239,8 @@ STOP @ round N · reason: <维度>
 ```
 
 不要写长篇大论，留给用户选择的空间。
+
+**大回停顿后的无人值守续跑**（可选）：30 轮大回停下后，若用户想延续无人值守循环（比如过夜跑），**用户**可以用 `/schedule` 注册 cron trigger 定时重启下一轮。**agent 不自己起** `CronCreate` / `ScheduleWakeup` —— 节奏由人决定，这是 GOALS non-goals 的硬线。
 
 ---
 

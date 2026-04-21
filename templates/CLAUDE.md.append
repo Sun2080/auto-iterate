@@ -22,7 +22,7 @@
 - 每轮至少一次 git commit（失败实验也要 commit 再 revert）
 - 先 commit 再 verify
 - 连续 2 轮同错 → 停下问人
-- 每 6 轮做 mini-review + prune AGENTS
+- 每 6 轮做 mini-review + prune AGENT_MEMORY
 - 每 30 轮大回：产出战报 · 停下等人类
 
 ### 不做的事（从本项目 Non-Goals）

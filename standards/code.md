@@ -82,6 +82,7 @@ enforcement: self (agent checks itself against these rules before declaring a ch
 - **不模糊，不放置歧义**：「优化一下」「改好看点」这种不是指令，是邀请乱搞。指令要带判据：「函数 X 从 O(n²) 降到 O(n log n)，tests/perf_test.py 通过」。
 - **prompt 里直接写成功判据**：「完成定义 = 以下 3 条全部满足：…」
 - **明说要不要激进工具用**：4.7 默认少调工具用自己推理。需要大量 grep/read 时 prompt 里写「主动搜索代码库，不要基于假设」。
+- **库 / API 问题用 Context7 MCP**：4.7 的知识有 cutoff。涉及第三方库版本、新 API、CLI 语法时 **优先** `mcp__context7__resolve-library-id` → `query-docs`，不要凭记忆推测 —— 推测出来的 API 很可能是幻觉。
 
 ### B2. 自适应思考 + Task Budget
 
@@ -115,6 +116,8 @@ enforcement: self (agent checks itself against these rules before declaring a ch
 - **长命令输出先过滤**（head/tail/grep）再读
 - **同一文件不重复读** —— 已经 Read 过就用已有上下文，除非文件改动
 - **并行独立调用** —— 多个不相关的 Read/Grep 一条消息里一起发
+- **利用 prompt cache** —— Claude Code 自动缓存前缀（5 min TTL）。把不变的大文件（`standards/` · `CLAUDE.md`）放会话前部，变动的（progress.md 尾 · 代码 diff · 本轮指令）放后部。中间插大块变动 = 缓存击穿。
+- **长循环主动 /compact** —— 跑过 5 min 后 cache 失效，与其冷启全读，不如先 `/compact` 把历史压成摘要，下一轮靠文件重建上下文（见 iterate.md §9 无状态迭代）。
 
 ---
 
