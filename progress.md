@@ -736,5 +736,51 @@ refs: memory#前几轮强制做一次外部参照
 
 refs: memory#前几轮强制做一次外部参照 · memory#改名类改动必须-grep-全仓再提交（本项目自身践行全部 AGENT_MEMORY 积累）
 
+---
+
+## Round 24 @ 2026-04-21 · STABLE v2 后压力测试 · 抓到元 bug
+
+**Trigger**: 用户说「再巡查一轮」—— STABLE v2 宣告后立刻压力测试，像 R18 对 R17 那样。
+
+**本轮角度**（均为之前未覆盖）:
+1. 实测文件行数 vs 文档里写的数字
+2. 编码 / EOL 一致性
+3. AGENT_MEMORY refs anchor 格式一致性
+
+**Modify**:
+
+**G1（新 Gotcha 8/10）** · AGENT_MEMORY 新增「文档里硬编码数字必漂 · 用范围或相对描述」。**触发**：R24 扫发现 R23 写「progress.md ~640 行」现实测 wc -l = 740。R23 明明刚改 GOALS.md Status 掉 R15 的硬编码轮数，自己又立刻在 progress 里漂一次。R15 / R18 / R23 三次同族 bug，证明这条教训需要独立 Gotcha 固化。
+
+**未改**:
+- **refs anchor 格式混用**（kebab-case `memory#前几轮强制...` vs 纯中文 `memory#宿主可能...`）—— §4.5 是轻量追踪，同一 Pattern 的历次 refs 自洽即可，跨 Pattern 不强统一。强求会把简单机制搞复杂。
+- **编码**: 全 UTF-8，`file` 命令对 templates 识别 "exported SGML" 是 HTML 注释触发的误识别，不是 bug。
+- **Git LF/CRLF 警告**: 标准 core.autocrlf 行为，跨平台期望。
+
+**Verify**:
+- [x] AGENT_MEMORY 计数器预测 83，实测 wc -l = 83 （本轮 G1 本身在践行）
+- [x] Gotchas 8/10 仍在限额
+- [x] progress.md 实测行数：追加本段后将到 ~790 行（不写死，提交后可 wc -l 核对）
+- [x] 本段所有数字都是刚实测的，无旧值
+
+**Status**: **Keep**。
+
+**收敛计数**（R18 判据「连续 3 轮 bug + 缺口双零」）:
+- R20 → R21 → R22 → R23 → R24 均 0 bug + 0 缺口
+- **5/3 超额维持**
+
+**R23 STABLE v2 站得住吗？**
+- **站得住**：真 bug + 功能缺口仍双零
+- **但**：R23 自身文字有漂移（640→740 + 轮数/行数概念混淆）。那是 progress 历史记录，不改；元教训已固化为 G1
+
+**元模式**（用户的压力测试节奏奏效）：
+- R17 STABLE v1 → 用户「再巡查」→ R18 找到数学 bug、打脸
+- R23 STABLE v2 → 用户「再巡查」→ R24 找到文字漂移、升级 Gotcha
+
+每次"我说稳了"都要被用户的"再巡查"钉一次 —— 这是本项目最有效的 QA 机制。
+
+**下轮计划**: 若用户继续「巡查」，R25 会挑还没摸过的角度：外链 URL 可达性 / 多宿主假设 / 实际拉取到临时目录后跑一遍 /loop 1m 模拟。若用户换方向，等信号。
+
+refs: memory#文档里硬编码数字必漂-用范围或相对描述（本轮新增 · 本段全部数字实测不写死）
+
 
 

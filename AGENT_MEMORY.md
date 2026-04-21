@@ -58,6 +58,10 @@
 **Why**: Round 8 把 AGENTS.md 改为 AGENT_MEMORY.md，前后共发现 **3 批残留**（R8 未扫净、R12 扫到 1 处、R14 又扫到 2 处 + 归档路径）。首处改完就自信、不全仓扫 = 坑自己。
 **How**: 任何改名 / 重命名 / 术语切换，commit 前 `grep -rn "<old>" .` 一遍，历史文件（progress 里的 Round N 记录）除外。跨 standards + templates + README 全扫。
 
+### 文档里硬编码数字必漂 · 用范围或相对描述
+**Why**: R15 写「Round 2-14 验证」、R18 写「35×3≈150」、R23 写「progress ~640 行」—— 三次同族，都是把会变的数字硬写进文档。R23 明知教训还犯，证明反射不够强。
+**How**: 改用「多轮」「~N 条」「≤ X 行（实测 wc -l）」等泛化；必写死时旁挂 comment「commit 前核对」。分区限额这种数学等式须过一遍算术（15+10+10=35，×3=105）。
+
 ---
 
 ## Decisions
@@ -76,4 +80,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 3/15 · Gotchas 7/10 · Decisions 3/10 · 总行数 79/200 -->
+<!-- 限额提示：Patterns 3/15 · Gotchas 8/10 · Decisions 3/10 · 总行数 83/200 -->
