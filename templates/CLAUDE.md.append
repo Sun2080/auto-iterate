@@ -1,31 +1,10 @@
 <!--
   把下面这段追加到宿主项目根的 CLAUDE.md 文件末尾。
-  如果没有 CLAUDE.md，就新建一个，只包含这段。
-  标准文件的相对路径按你实际放置的位置调整。
+  没有 CLAUDE.md 就新建，只包含这段。
 -->
 
-## 代码与迭代标准（by auto-iterate）
+## 代码与方向锚定守则（by auto-iterate）
 
-本项目遵循 `auto-iterate` 规范：
-
-- **动手前**读 [.claude/standards/code.md](.claude/standards/code.md) —— Karpathy 4 原则 + Opus 4.7 交互契约
-- **开始迭代循环前**读 [.claude/standards/iterate.md](.claude/standards/iterate.md) —— 核心循环、复利机制、停止条件
-- **本项目已有自己的迭代约定**（NORTH_STAR / HANDOFF / DECISIONS 等）？读 [iterate.md §11 融入宿主已有约定](.claude/standards/iterate.md)，按角色映射表整合，不要两套并维护
-
-### 本项目的迭代记忆
-
-- [GOALS.md](GOALS.md) —— 目标与成功判据（由人维护）
-- [AGENT_MEMORY.md](AGENT_MEMORY.md) —— 累积的模式 / 坑 / 决策（agent 维护，≤ 200 行）
-- [progress.md](progress.md) —— 每轮日志（agent 追加）
-
-### 硬约束提醒（从 iterate.md 摘）
-
-- 每轮至少一次 git commit（失败实验也要 commit 再 revert）
-- 先 commit 再 verify
-- 连续 2 轮同错 → 停下问人
-- 每 6 轮做 mini-review + prune AGENT_MEMORY
-- 每 30 轮大回：产出战报 · 停下等人类
-
-### 不做的事（从本项目 Non-Goals）
-
-见 [GOALS.md · Non-Goals](GOALS.md#non-goals)。Agent 若动了这些，视为跑偏（iterate.md §7），立即 revert。
+- 动手前读 [.claude/standards.md](.claude/standards.md) —— Karpathy 4 原则 + Opus 4.7 契约 + GOALS 锚定硬线
+- 方向由 [GOALS.md](GOALS.md) 提供（由人维护）
+- 每次动手前自问：「这一步能在 GOALS.md 的某条下找到归属吗？」找不到 → 停下问人，**不自己扩张方向**
