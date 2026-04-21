@@ -20,7 +20,7 @@ enforcement: self + filesystem (AGENT_MEMORY.md / progress log / git commits are
 
 **前 3 轮**: 必做一次外部参照（§1.2），避免闭门造车
 
-**停下问人**: 连续 2 轮同错 / 连续 3 轮无 commit / 大回 30 轮 / 5 小时 / 目标达成 / 动作在 `GOALS.md` 找不到归属
+**停下问人**（§6）: 连续 2 轮同错 / 连续 3 轮无 commit / 大回 30 轮 / 5 小时 / 目标达成 / 预算耗尽 ·· 外加 §7 跑偏（动作在 `GOALS.md` 找不到归属）
 
 **反膨胀**: `AGENT_MEMORY.md` ≤ 200 行 · Patterns ≤ 15 · Gotchas ≤ 10 · Decisions ≤ 10 · 每条 ≤ 3 行（§4）
 
