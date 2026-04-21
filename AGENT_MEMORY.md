@@ -43,7 +43,7 @@
 **How**: 新建文件前查社区约定（agents.md、CLAUDE.md、CONTRIBUTING.md 等）。用途不撞也要避名。
 
 ### 用户偏好极简口令，不要长句 prompt
-**Why**: 用户连续反馈「太长了」「必须这么说？」—— 装完后宿主指令文件（`CLAUDE.md` / `AGENTS.md`）已挂接，agent 有协议上下文，口令可以短到 2-4 字。
+**Why**: 用户连续反馈「太长了」「必须这么说？」—— 装完后 CLAUDE.md 已挂接，agent 有协议上下文，口令可以短到 2-4 字。
 **How**: 对用户的操作性说明写成表格速查（2-4 字口令 + 场景），解释和理由塞在别处。不要要求用户复读完整 prompt。
 
 ### 每轮只读 iterate.md 的 TL;DR，省 token
@@ -79,13 +79,9 @@
 **How**: `README.md` Step 1 精确列白名单。新增对宿主有用的文件放 `standards/` 或 `templates/`，不放根。
 
 ### 不做 `/iterate` skill
-**Why**: Claude Code 原生有 `/loop` / `/schedule`，Codex 原生有 Automations；再包一层跨平台 `/iterate` 命令只会引入维护面。且 GOALS 明说「不做通用 framework」。
-**How**: `standards/` 只讲方法；README Step 5 按平台给出原生命令 / 自动化入口，agent 不自己造壳。
-
-### 核心标准保持平台中性，平台差异放 adapter 层
-**Why**: 一旦把 `CLAUDE.md` / `AGENTS.md`、`/loop` / Automations 这类载体写死进 standards，本包就只能服务单平台。
-**How**: `standards/` 只写共性；README + `CLAUDE.md.append` + `AGENTS.md.append` 负责平台落地。
+**Why**: Claude Code 原生有 `/loop` / `CronCreate` / `ScheduleWakeup`，包一层是冗余。且 GOALS 明说「不做通用 framework」。
+**How**: README Step 5 直接教用户用 `/loop 10m <prompt>`，agent 不自己起调度。
 
 ---
 
-<!-- 限额提示：Patterns 3/15 · Gotchas 9/10 · Decisions 4/10 · 总行数实测 wc -l -->
+<!-- 限额提示：Patterns 3/15 · Gotchas 9/10 · Decisions 3/10 · 总行数实测 wc -l -->
