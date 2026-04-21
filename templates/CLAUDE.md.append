@@ -20,7 +20,7 @@
 
 ### Autopilot · 无人参与
 
-用户消息含 `自动迭代` / `自动跑` / `自主跑` / `托管` / `autopilot` 触发词时,**加载** [.claude/autopilot.md](.claude/autopilot.md),按其协议执行。
+用户消息含 `自动迭代` / `自动跑` / `自主跑` / `自主模式` / `托管` / `autopilot` 触发词时,**加载** [.claude/autopilot.md](.claude/autopilot.md),按其协议执行。
 
 **启动口令速查**:
 

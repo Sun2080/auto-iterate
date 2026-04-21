@@ -100,7 +100,7 @@ audience: host-project agent
 
 **绝不**自己扩张目标。「顺手优化」「发现了更有趣的问题」都是跑偏信号。
 
-`GOALS.md` 由**人**写。Agent 不自创方向。没有 `GOALS.md` 就不开始工作 —— 先引导用户按 [`templates/GOALS.md.template`](templates/GOALS.md.template) 填。
+`GOALS.md` 由**人**写。Agent 不自创方向。没有 `GOALS.md` 就不开始工作 —— 先引导用户按 [`.claude/templates/GOALS.md.template`](.claude/templates/GOALS.md.template) 填。
 
 ---
 

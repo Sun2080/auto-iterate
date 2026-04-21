@@ -80,7 +80,7 @@ Inline Mission 在冒号后、"限"前。启动时 agent 自建 GOALS.md 把 Mis
 
 ### 2.2 自填 GOALS.md
 
-用 `templates/GOALS.md.template` 起草:
+用 `.claude/templates/GOALS.md.template` 起草:
 
 - **Mission**: 用户给的原话,不改
 - **Success Criteria**: 3-7 条,**每条必须带机械判据**("跑什么 / 看什么 / 什么算过")。禁止"性能更好"这种无判据的。

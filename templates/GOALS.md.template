@@ -1,8 +1,8 @@
 # Goals — <宿主项目名>
 
 > **有人值守模式**:Mission / Success Criteria / Non-Goals / Constraints 全部**由人写**,agent 不自创方向。
-> **Autopilot 模式**(`自主:` 启动):**Mission 必须由人写**;Success Criteria / Non-Goals / Constraints 允许 agent 首轮 bootstrap 自填。
-> 没写 Mission 就不开始工作。
+> **Autopilot 模式**(`自动迭代` / `托管` 等触发词启动):**Mission 由用户给**(填本文件,或首启时 inline `自动迭代:<mission>,限 <上限>`);Success Criteria / Non-Goals / Constraints 允许 agent 首轮 bootstrap 自填。
+> 没有 Mission 就不开始工作。
 
 ## Mission
 
