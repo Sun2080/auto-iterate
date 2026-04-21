@@ -1,9 +1,12 @@
 <!--
-  把下面这段追加到宿主项目根的 CLAUDE.md 文件末尾。
-  没有 CLAUDE.md 就新建,只包含这段。
+  auto-iterate installed · sha <REPLACE_ME_HEAD_SHA> · <REPLACE_ME_YYYY-MM-DD>
+  装时 agent 会把上行的占位替换成实际 clone 到的 HEAD sha + 当天日期。
+  下次重装时 agent 靠这个注释定位本段落整体替换,不追加第二份。
 -->
 
-## 代码与方向锚定守则(by auto-iterate)
+## AI 基座 · by auto-iterate
+
+本项目使用 [auto-iterate](https://github.com/Sun2080/auto-iterate) 作为 AI 基座。两种工作模式:
 
 ### 默认 · 有人值守
 
@@ -13,10 +16,19 @@
 
 ### Autopilot · 无人参与
 
-用户消息含 `自动迭代` / `自动跑` / `自主跑` / `托管` / `autopilot` 触发词时,**加载** [.claude/autopilot.md](.claude/autopilot.md),按其协议执行:
+用户消息含 `自动迭代` / `自动跑` / `自主跑` / `托管` / `autopilot` 触发词时,**加载** [.claude/autopilot.md](.claude/autopilot.md),按其协议执行。
 
-- 常态:`自动迭代 <上限>` —— Mission 从 GOALS.md 读
-- 首启:`自动迭代:<mission>,限 <上限>` —— inline Mission,agent 自建 GOALS.md
+**启动口令速查**:
+
+```
+自动迭代 4h                           # Mission 从 GOALS.md 读
+自动迭代 50 commit
+自动迭代 到 2026-04-22 03:00
+自动迭代 到明晚 22:00
+自动迭代:<mission>,限 <上限>           # 首启 / inline Mission
+```
+
+**硬线**:
+- Mission 是唯一硬线(由人给);Success Criteria / Non-Goals 允许 bootstrap 自填
 - 上限必给(时间 / 绝对时间 / commit / 预算任一),否则不启动
-- Mission 是唯一硬线(由人给),Success Criteria / Non-Goals 允许首轮 bootstrap 自填
-- 硬停时写 HANDOFF 到 progress.md 尾,**不**续 cron / ScheduleWakeup
+- 硬停时写 HANDOFF 到 `progress.md` 尾,**不**续 cron / ScheduleWakeup

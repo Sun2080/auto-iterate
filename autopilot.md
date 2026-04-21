@@ -113,8 +113,6 @@ Modify → Commit → Verify → Keep / Revert
 - 能 → 做
 - 不能 → **不是停下问人**(没人),**是硬停**(§5)
 
-Mission 锚定**取代**了 standards.md §C 的 GOALS 归属锚定。Success Criteria 是 agent 自填的,不作硬线;Mission 是唯一硬线。
-
 ---
 
 ## 4 · 自救机制
@@ -172,9 +170,16 @@ Mission 锚定**取代**了 standards.md §C 的 GOALS 归属锚定。Success Cr
 ```
 
 **"续跑指令"写法**:
-- 未完成: `自主:继续上次,限 <上限>`(agent 重读 GOALS + progress 末段就能接)
+- 未完成: `自动迭代 <新上限>`(Mission 留在 GOALS.md,agent 重读 GOALS + progress 末段就能接)
 - 已完成: `(Mission 已达成,无需续跑)`
 - 冲突: `需你审 Mission/criteria 后决定方向`
+
+**停时不做的事**:
+- ❌ `ScheduleWakeup` 续下一轮
+- ❌ 发邮件 / 通知
+- ❌ "等一下再试"
+
+autopilot 结束 = 安静地停。用户回来看 progress.md 尾的 HANDOFF 段自行判断。
 
 ---
 
@@ -194,15 +199,7 @@ alignment @ round N: <高/中/低> · 已做 <X>, 风险 <Y or 无>
 
 ---
 
-## 7 · 自停消息(HARD STOP 写在 progress 尾即可)
-
-不 `ScheduleWakeup` 续下一轮。不发邮件 / 通知。不"等一下再试"。
-
-autopilot 结束 = 安静地停。用户回来看 progress.md 尾的 HANDOFF 段自行判断。
-
----
-
-## 8 · 禁止清单
+## 7 · 禁止清单
 
 autopilot 模式下 agent **不做**:
 
