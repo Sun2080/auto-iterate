@@ -3,7 +3,7 @@
 一个指导 Claude Code agent「写好代码、高效自我迭代」的轻量知识包。
 
 - **Part 1 · 写好代码** —— Karpathy 4 原则 + Opus 4.7 交互契约 → [`standards/code.md`](standards/code.md)
-- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 → [`standards/iterate.md`](standards/iterate.md)
+- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 + 参数化节拍（`/loop 1m`-`20m`） → [`standards/iterate.md`](standards/iterate.md)
 
 不教业务目标、不管基础设施、不做通用 framework。只讲「怎么工作」。
 
@@ -82,8 +82,8 @@ rm -rf /tmp/auto-iterate
 
 安装完成后告诉用户：
 1. 两份标准已挂接（路径告知）
-2. `GOALS.md` 模板就位，需要人填 Mission / Success Criteria / Non-Goals / Constraints
-3. 填完后用户说「开始迭代」即可进入 `iterate.md` 的循环
+2. `GOALS.md` + `AGENT_MEMORY.md` 模板已复制就位；`GOALS.md` 需要人填 Mission / Success Criteria / Non-Goals / Constraints
+3. 填完后用户说 `下一轮`（手动）或 `/loop Xm 下一轮`（自动，见速查表档位）即可进入 `iterate.md` 的循环
 
 **不要**用户没填 GOALS.md 就自己开始跑 —— 那是 §7 跑偏。
 
@@ -104,6 +104,8 @@ GOALS.md 填完、用户说「开始」后，有两种运行方式：
 **短任务用小周期**：如果一轮实际只用 1-2 min，把 `10m` 换成 `1m` 或 `30s` —— prompt cache 5min TTL 下短周期几乎全命中，比长周期反而省 token（见速查表）。
 
 **不要自己起 `CronCreate` 或开 `ScheduleWakeup`**。节奏由用户控制，agent 只管好每一轮内部的质量。
+
+**30 轮大回停下后想过夜跑**：用户可用 `/schedule` 注册 cron trigger 定时重启下一轮（`iterate.md §6` 末段）。agent 仍不自拨。
 
 ---
 
