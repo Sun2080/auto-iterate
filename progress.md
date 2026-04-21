@@ -1075,3 +1075,52 @@ refs: memory#用户偏好精简文件结构 · memory#铺信息 ≠ 用户能找
 
 ---
 
+## Round 32 · 收版状态评估 · 交人决策
+
+**Trigger**: 用户直问「现在状态如何，可以收版没」。真实驱动信号 —— 要明确答复。
+
+**① GOALS Success Criteria 5/5**:
+- [x] README.md ≤ 2min 知下一步（R29 顶部 TL;DR 代码块）
+- [x] standards/ 关联宿主 CLAUDE.md（`templates/CLAUDE.md.append`）
+- [x] iterate.md 循环跑得起来（本项目 31 轮 dogfood 自证）
+- [x] AGENT_MEMORY 不膨胀（91 行 / 16 条 = 3P + 10G + 3D · 远低于 35 条上限）
+- [x] 停止条件能触发（R30 触 §5.2 · R31 触 §6 user-revert 分支）
+
+**② Non-Goals / Constraints 零触线**:
+- 文件数 7（≤10）· 目录平铺 + `standards/` + `templates/` + `progress-archive/` 各一层
+- 零运行时依赖 · 中文为主 · 未做平台适配 / 未做通用 framework（R31-old/R32-old 越线已 revert + 入 Gotcha 10 封堵）
+
+**③ 与 R26 FROZEN 的 delta**（post-FROZEN 增量加固层，未动核心）:
+- R27: `/loop` 非堆积事实 + 动态模式（技术补录）
+- R28: README 三档节律对齐
+- R29: README 顶部零前提 TL;DR
+- R30: 大回战报 + 归档
+- R31: revert 吸收 Gotcha（10/10 触顶）
+
+**④ 警戒线（非 blocker）**:
+- Gotchas 10/10 触顶 → 下条新坑前必须 prune
+- 本地 ahead origin 1 commit（R31）→ 推不推交用户
+- `.claude/` 未追踪 → 本机配置，正常不入仓
+
+**结论**: **可以收版**。当前状态 = R26 FROZEN 基线 + R27-R31 真实驱动增量加固，语义仍归属 R26 的 FROZEN 锚点 —— **不自封 STABLE v3**（遵守 AGENT_MEMORY「铺信息 ≠ 用户能找到」同族：不造冗余标签）。
+
+**下一步三选一（交人决策）**:
+1. `push` → 发布 R27-R31 增量到 origin
+2. 等真信号（`继续` / 宿主反馈 / 新诉求）→ agent 不自起
+3. `tag stable-v3` 或类似标签（如你确实要新版本锚点）
+
+**Modify**: 仅本 progress 条目，零功能改动（评估本身不产新模式，不动 AGENT_MEMORY）。
+
+**Verify**:
+- [x] 过 Gotcha 10 自检：单轮 ≤ +100 行、无新文件、未扩 scope
+- [x] git status 干净（commit 后）
+- [x] GOALS 五条逐项核查有证据
+
+**Status**: Keep.
+
+**§6「目标达成」分支触发 → 不 ScheduleWakeup · 退出 /loop 动态模式**。等用户真信号。
+
+refs: memory#revert 是强负反馈 · memory#铺信息 ≠ 用户能找到
+
+---
+
