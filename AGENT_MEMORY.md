@@ -86,6 +86,10 @@
 **Why**: Claude Code 原生有 `/loop` / `CronCreate` / `ScheduleWakeup`，包一层是冗余。且 GOALS 明说「不做通用 framework」。
 **How**: README Step 5 直接教用户用 `/loop 10m <prompt>`，agent 不自己起调度。
 
+### R37 扩 GOALS 文件数 10→11 给 USAGE.md · 不是先例，是授权
+**Why**: R32-old USAGE.md +411 行被 revert 是因 agent 自创、大而全。R37 是用户**显式授权**「扩文件到 11 · 其它的你决定」+ 基于权威查证的 ~90 行精简；两者不同族。
+**How**: 再扩（12→...）需新决策，不因本次先例滑坡。Agent 仍不自己提「我建议再建 X.md」—— 新文件永远走「用户授权或 GOALS 扩上限」才能启动。
+
 ---
 
-<!-- 限额提示：Patterns 3/15 · Gotchas 10/10（触顶·下次新加需先 prune）· Decisions 3/10 · 总行数实测 wc -l -->
+<!-- 限额提示：Patterns 3/15 · Gotchas 10/10（触顶·下次新加需先 prune）· Decisions 4/10 · 总行数实测 wc -l -->

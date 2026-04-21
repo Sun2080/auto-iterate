@@ -43,6 +43,8 @@
 
 Agent 按下面「消费入口」流程执行首装。
 
+> **需要 `/loop` 之外的常用指令 / 按键**（`/compact` · `/clear` · `Esc` · `Shift+Tab` · `@file` 等 ~25 个）→ 看 [USAGE.md](USAGE.md)。
+
 ---
 
 ## 停法（省心版）

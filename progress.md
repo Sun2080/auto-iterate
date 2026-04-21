@@ -1321,3 +1321,64 @@ refs: memory#硬编码数字必漂（第 4 例落成 + 规则升级）· memory#
 
 ---
 
+## Round 37 · 新建 USAGE.md 人类版口令速查 · 扩 GOALS 文件数 10→11
+
+**Trigger**: 用户同轮追加「再加一个 专门人类看的 说明书，详细把常用的指令写出来，不局限于 loop」+ 「扩文件到 11，其它的你决定」—— 显式授权 scope 扩张，让我决定先后次序与具体形态。
+
+**关键区分（Gotcha 10 同族检查）**:
+- R32-old: agent 自创 USAGE.md +411 行（大而全、拷贝 README 内容）→ 被 revert
+- R37（本轮）: 用户显式 ask + 显式授权扩 GOALS + 基于 R36 查到的 3 篇权威文档精简筛选的 ~99 行
+- 差异：**自创 vs 授权** + **大而全 vs 精筛** + **无参考源 vs 权威源** —— 不同族
+
+**Modify**:
+
+a) [GOALS.md Constraints](GOALS.md): `文件数 ≤ 10` → `文件数 ≤ 11`，附注「R37 扩 10→11 给 USAGE.md，再扩需新决策」
+b) **新建** [USAGE.md](USAGE.md) · 99 行 · 4 层结构：
+   - Tier 1 日常高频（`/loop` 三档 · `/compact` · `/clear` · `/resume` · `/context` · `/status` · `/cost`）
+   - 按键表（`Esc` · `Ctrl+C/D` · `Shift+Tab` · `Ctrl+O/T/B/L/R`）
+   - 输入前缀（`/` · `@` · `!`）
+   - Tier 2 偶尔 + Tier 3 调试（`/model` · `/effort` · `/memory` · `/init` · `/plan` · `/review` · `/rewind` · `/diff` · `/schedule` · ...）
+   - 贴 auto-iterate 工作流的「场景 → 口令」速查
+c) [README.md](README.md): palette 表下方加一句「需要 `/loop` 之外的常用指令/按键 → 看 USAGE.md」+ 给 ~25 口令 /键预览
+d) [AGENT_MEMORY.md Decisions](AGENT_MEMORY.md): 加第 4 条 Decision「R37 扩 GOALS 10→11 给 USAGE.md · 不是先例，是授权」—— 锁住不滑坡
+
+**Gotcha 10 三闸自检**:
+- 单轮净改：USAGE.md +99 · GOALS +0/+1 · README +2 · AGENT_MEMORY +5 · progress +~50 = ~157 行
+- 超 +100 行 & 新文件两条都触发 → 用户**明确授权**扩 scope + 扩 GOALS 文件数 ≤ 10 → ≤ 11
+- GOALS Non-Goals / Constraints 中除文件数外其他全过：中文为主 ✓ · 零依赖 ✓ · 不做平台适配（USAGE.md 不提具体平台分叉）✓ · 不做通用 framework（仅 auto-iterate 工作流的筛选子集）✓
+
+**§7 跑偏检查**: 归属 GOALS Mission「让宿主 agent 拉取后获得写好代码 + 高效自我迭代的能力」—— 人类版速查服务同一 Mission 的人类那一侧（GOALS Success Criteria 已隐含「用户能上手操作」）。不是自创新方向 ✓
+
+**内容筛选原则**（给未来的我）：
+- 官方有 ~120 个命令，USAGE.md 只保 ~25
+- 筛选标准：（a）auto-iterate 场景会用到，（b）高频或关键节点（停 /loop / compact / rewind 等），（c）人类容易忘的按键（`Esc` 停 /loop 这种）
+- 跳过：`/stickers` `/voice` `/passes` `/mobile`、Vim 模式、企业/插件命令、远程命令（`/teleport` / `/remote-control`）
+- 每条标「何时用」贴 auto-iterate 工作流，不做百科全书
+
+**Verify**:
+- [x] USAGE.md 99 行（目标 ≤ 100 达成）· 4 层结构 + 「不在这里的」delegate 给官方文档链
+- [x] GOALS.md 文件数上限更新 + 附注（防滑坡）
+- [x] README palette 下方 1 行引流，不重复 USAGE 内容
+- [x] AGENT_MEMORY.md Decision 4/10（仍有 6 空位）· 限额注释同步到 4/10
+- [x] 文件数：10 → 11 · 根目录 5 (README · GOALS · AGENT_MEMORY · progress · USAGE) + standards 2 + templates 3 + progress-archive 1 = 11 ✓
+- [x] 所有命令/按键可追溯到权威源（scheduled-tasks · commands · interactive-mode）
+- [x] USAGE.md 无 30s / 无其他权威不支持项
+
+**Status**: Keep.
+
+**意义**:
+- **首次 agent-human 双 ask 同轮并列处理**：R36 修 bug（agent 主导）+ R37 写手册（user 主导 scope），两 commit 分开追溯清晰
+- **Gotcha 10「单轮扩 scope 走 3 闸」正面应用**：发现触发两条（+157 行 + 新文件），显式用户授权 + 存证（GOALS 附注 + Decision 4）才启动 —— 不是"反正用户说了就干"
+- **R32-old 的 revert 不再是禁区**：证明"独立文件"本身不错，错的是"agent 自创 + 大而全"。R37 规则：**用户显式 ask + 权威筛选 + 附注防滑坡** 就能做
+- **R26 FROZEN 之后第 9 个增量加固轮**（R27-R37），全部真实驱动
+
+**下一轮触发**: 无预定。候选信号：
+- USAGE.md 实际使用反馈（用户/第三方找不到某条 / 多了某条）
+- 权威文档有重大更新（新增关键命令 / 旧命令改行为）
+- 宿主装用反馈
+- 用户新 ask
+
+refs: memory#revert 是强负反馈（第 4 次作正面闸用 · 防滑坡）· memory#铺信息 ≠ 用户能找到（USAGE 结构：tier 分 + 场景速查，避免 R29 同病）
+
+---
+
