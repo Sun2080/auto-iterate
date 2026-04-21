@@ -263,5 +263,29 @@ refs: memory#前几轮强制做一次外部参照 · external#shanraisshan/claud
 
 refs: memory#每轮只读-iterate-md-的-tldr · memory#长循环里主动-compact
 
+---
+
+## Round 11 @ 2026-04-21 · 口语短指令回显规则
+
+**Trigger**: 用户问「口语翻译格式化有没有必要」—— debug / 看看 这类短指令如何稳定展开。
+
+**Goal**: 用最轻的方式固化一个提示：短口语要先回显计划再动手，别沉默扩展。
+
+**Modify**: `standards/iterate.md §2.1 Modify` 末尾加一段「口语短指令的展开规则」—— 30 字内回显 3-5 步计划，等「准/改/停」再动手。
+
+**设计权衡**:
+- 不做完整「口语→动作」字典：会和 §2 循环重叠，违反 GOALS non-goals「不做通用 framework」
+- 不加 AGENT_MEMORY Pattern：和现有 Gotcha「用户偏好极简口令」主题重叠，且 AGENT_MEMORY 是项目自身记忆不给宿主
+- 选 iterate.md §2.1：宿主拉下就能继承 · 只 3 行 · 紧贴 Modify 步骤的语义位
+
+**Verify**:
+- [x] 新段在 §2.1 末尾，不影响 Karpathy 4 原则那一行
+- [x] AGENT_MEMORY 计数未变（2/15 · 6/10 · 3/10）
+- [x] 新段 ≤ 3 行，和既有 Gotcha「极简口令」互补不冲突
+
+**Status**: **Keep**。
+
+refs: memory#用户偏好极简口令-不要长句-prompt
+
 
 

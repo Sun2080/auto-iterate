@@ -103,6 +103,8 @@ Modify → Commit → Verify → Keep / Revert
 - 一轮只做一件事（一个 feature / 一个 bug / 一次重构片段）
 - 遵循 [code.md](code.md) 的 Karpathy 4 原则
 
+**口语短指令的展开规则**：收到「debug / 重构 / 优化 / 看看 / 修一下」这类展开空间大的短指令时，**动手前 30 字内回显计划**（「我打算：1) X 2) Y 3) Z，动手？」），等用户「准 / 改 / 停」再动手。不要沉默扩展方向，也不要吐 5 步长计划。
+
 ### 2.2 Commit（**先于验证**）
 - Commit message 格式：
   - 常规改动：`feat/fix/refactor: <what> · <why>`
