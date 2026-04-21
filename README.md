@@ -75,11 +75,22 @@ Agent 按当前 shell 选命令,本项目不做平台适配。
 ### Step 3 · 拷文件
 
 ```bash
+# Unix / git-bash
 mkdir -p .claude
 cp /tmp/auto-iterate/standards.md .claude/standards.md
 cp /tmp/auto-iterate/autopilot.md .claude/autopilot.md
 cp -r /tmp/auto-iterate/templates .claude/templates
 ```
+
+```powershell
+# Windows 原生 PowerShell (示例)
+New-Item -ItemType Directory -Force .claude | Out-Null
+Copy-Item $env:TEMP\auto-iterate\standards.md .claude\standards.md
+Copy-Item $env:TEMP\auto-iterate\autopilot.md .claude\autopilot.md
+Copy-Item $env:TEMP\auto-iterate\templates .claude\templates -Recurse
+```
+
+Agent 按当前 shell 选命令,临时目录路径跟 Step 1 实际 clone 路径保持一致。
 
 ### Step 4 · 追加 CLAUDE.md
 
@@ -94,7 +105,13 @@ cp -r /tmp/auto-iterate/templates .claude/templates
 ### Step 5 · 清临时目录 + 回报
 
 ```bash
+# Unix / git-bash
 rm -rf /tmp/auto-iterate
+```
+
+```powershell
+# Windows 原生 PowerShell (示例)
+Remove-Item $env:TEMP\auto-iterate -Recurse -Force
 ```
 
 回报用户:
@@ -132,4 +149,5 @@ rm -rf /tmp/auto-iterate
 
 - [Andrej Karpathy](https://karpathy.ai/) 对 LLM 编码陷阱的观察(via [forrestchang/andrej-karpathy-skills](https://github.com/forrestchang/andrej-karpathy-skills))
 - [Anthropic · Claude Opus 4.7 Best Practices](https://claude.com/blog/best-practices-for-using-claude-opus-4-7-with-claude-code)
+- [Claude Code · Best Practices](https://code.claude.com/docs/en/best-practices)
 - AutoResearch 模式(autopilot 循环结构参考)

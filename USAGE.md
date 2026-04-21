@@ -43,7 +43,7 @@ Agent 装完后会复制 `.claude/templates/GOALS.md.template` 为宿主根的 `
 ### 启动方式
 
 - **手动**:说「做 X」/「做下一件事」/「修一下 Y」
-- **连续**:用 Claude Code 原生 `/loop <prompt>` —— 不带时间参数是动态节拍(跑完立即起);带 `Xm` 是固定周期。详见 [官方 scheduled-tasks 文档](https://code.claude.com/docs/en/scheduled-tasks.md)
+- **连续**:用 Claude Code 原生 `/loop <prompt>` —— 不带时间参数是动态节拍(跑完立即起);带 `Xm` 是固定周期。详见 [官方 scheduled tasks 文档](https://code.claude.com/docs/en/scheduled-tasks)
 
 ### Agent 的硬线
 
@@ -115,7 +115,7 @@ Agent 装完后会复制 `.claude/templates/GOALS.md.template` 为宿主根的 `
 
 - **Mission 是硬线** —— agent 不动 Mission,偏了就硬停
 - **上限是硬线** —— 不给不启动,给了不超
-- **硬停不续命** —— 不自调 cron / `ScheduleWakeup`,停就是停,交由你决定
+- **硬停不续命** —— 不自建计划任务 / cron 续命,停就是停,交由你决定
 
 ---
 
@@ -124,7 +124,7 @@ Agent 装完后会复制 `.claude/templates/GOALS.md.template` 为宿主根的 `
 ### 想中途停 autopilot?
 - 若你在会话里:按 `Esc`(Claude Code 原生,停当前 round)· 或直接说「停」
 - 若你关了会话:autopilot 活在当前会话里,关窗即停(不需要 `/loop`,agent 是连续 back-to-back 跑的)
-- Agent 自己永远不 `ScheduleWakeup` 续下一轮
+- Agent 自己永远不新建计划任务续下一轮
 
 ### autopilot 跑完了我想继续探索?
 HANDOFF 段尾的"续跑指令"直接复制。或:

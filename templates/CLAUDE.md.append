@@ -35,4 +35,4 @@
 **硬线**:
 - Mission 是唯一硬线(由人给);Success Criteria / Non-Goals 允许 bootstrap 自填
 - 上限必给(时间 / 绝对时间 / commit / 预算任一),否则不启动
-- 硬停时写 HANDOFF 到 `progress.md` 尾,**不**续 cron / ScheduleWakeup
+- 硬停时写 HANDOFF 到 `progress.md` 尾,**不**续 cron / 新建计划任务
