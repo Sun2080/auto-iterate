@@ -1,6 +1,8 @@
 # auto-iterate
 
-**Claude Code 的 AI 基座**。新项目一句话装完,老项目一句话清旧重建。装完后 agent 按两种模式工作:有人值守 + 无人参与。
+**Claude Code 的 AI 基座**。新项目一句话装完,老项目一句话清旧重建。
+
+> 📖 装完怎么用 → [USAGE.md](USAGE.md)(两种模式 · 启动口令 · 常见问题)
 
 ---
 
@@ -16,53 +18,9 @@
 装 https://github.com/Sun2080/auto-iterate · 清旧重建 AI 基座
 ```
 
-Agent 会按 [给 agent · 安装协议](#给-agent--安装协议) 自动执行:拉 repo → 清旧(仅老项目)→ 拷文件 → 追加 CLAUDE.md → 自报装完。
+Agent 按下方 [给 agent · 安装协议](#给-agent--安装协议) 自动执行:拉 repo → 清旧(仅老项目)→ 拷文件 → 追加 CLAUDE.md → 自报装完。
 
----
-
-## 用(装完之后)
-
-### 模式 A · 有人值守(默认)
-
-1. 填 `GOALS.md`(Mission / Success Criteria / Non-Goals / Constraints)
-2. 说「做 X」/「下一件事」,或 `/loop <prompt>` 连续跑
-3. Agent 动手前过 `standards.md §C`:动作能在 GOALS.md 找到归属吗?找不到 → 停下问人
-
-### 模式 B · Autopilot · 无人参与
-
-**Mission 已在 GOALS.md**(常态):
-```
-自动迭代 4h
-自动迭代 50 commit
-自动迭代 到 2026-04-22 03:00
-自动迭代 到明晚 22:00
-```
-
-**首启 / 新项目**(inline Mission):
-```
-自动迭代:做黄金交易辅助系统,限 4h
-托管:把登录模块重构到解耦,限 50 commit
-```
-
-触发词任一:`自动迭代` / `自动跑` / `自主跑` / `托管` / `autopilot`
-上限必给:时间(相对/绝对)/ commit / 预算任一
-
----
-
-## 文件结构(装完后宿主项目)
-
-```
-.claude/
-├── standards.md          # 默认模式规则(Karpathy 4 + 4.7 契约 + GOALS 锚定)
-├── autopilot.md          # Autopilot 模式协议
-└── templates/
-    ├── GOALS.md.template
-    └── CLAUDE.md.append
-CLAUDE.md                 # 追加了 auto-iterate 段 + 装完标记
-GOALS.md                  # 由人或 autopilot bootstrap 产出
-```
-
-5 个文件。没有 `progress.md` / `AGENT_MEMORY.md` 等强制记忆文件 —— 4.7 + git history 够用。autopilot 模式会自建 `progress.md` 记轨迹,非 autopilot 不要求。
+装完后 → 看 [USAGE.md](USAGE.md)。
 
 ---
 
@@ -127,7 +85,7 @@ cp -r /tmp/auto-iterate/templates .claude/templates
 
 把 `.claude/templates/CLAUDE.md.append` 的内容追加到宿主项目根 `CLAUDE.md`(没有就新建)。
 
-**打装完标记**:追加时首行加 HTML 注释:
+**打装完标记**:追加时把模板首行占位替换成真实值:
 ```
 <!-- auto-iterate installed · sha <clone 到的 HEAD sha> · <YYYY-MM-DD> -->
 ```
@@ -145,7 +103,7 @@ rm -rf /tmp/auto-iterate
 - 新增: .claude/standards.md · .claude/autopilot.md · .claude/templates/
 - 追加: CLAUDE.md(尾部加了 auto-iterate 段 + 装完标记)
 - 清旧: <N> 项(如有)
-下一步:
+下一步看 USAGE.md。简短版:
 - 有人值守 → 填 GOALS.md 后说「做 X」
 - Autopilot → `自动迭代:<mission>,限 <上限>`(首启) 或填 GOALS.md 后 `自动迭代 <上限>`
 ```
