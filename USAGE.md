@@ -123,7 +123,7 @@ Agent 装完后会复制 `.claude/templates/GOALS.md.template` 为宿主根的 `
 
 ### 想中途停 autopilot?
 - 若你在会话里:按 `Esc`(Claude Code 原生,停当前 round)· 或直接说「停」
-- 若你关了会话:`/loop` 绑会话,关窗即停
+- 若你关了会话:autopilot 活在当前会话里,关窗即停(不需要 `/loop`,agent 是连续 back-to-back 跑的)
 - Agent 自己永远不 `ScheduleWakeup` 续下一轮
 
 ### autopilot 跑完了我想继续探索?
