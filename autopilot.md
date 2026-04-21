@@ -96,6 +96,8 @@ Inline Mission 在冒号后、"限"前。启动时 agent 自建 GOALS.md 把 Mis
 
 ## 3 · 核心循环
 
+**运行形态**: 紧凑连续循环(back-to-back),一轮跑完立即下一轮。**不** sleep / **不** `ScheduleWakeup` / **不**定时轮询 —— 靠 prompt cache 跨轮复用省 token,30min 冷启动那种坑走不到这里。
+
 每轮执行:
 
 ```
@@ -108,6 +110,8 @@ Modify → Commit → Verify → Keep / Revert
 - 每轮 progress.md 追加 3-5 行(做了啥 / 验证结果 / 下一步)
 - 有复用价值的发现 → 追加到 `GOALS.md § Discoveries`
 - UI 改动用 Playwright MCP 真跑(`browser_navigate` + `browser_snapshot` + `browser_console_messages`),没装就先装或改方案
+- **重活派 subagent**:全局搜代码 / 读长文件 / 批量扫描 / 外部研究 → 委派 `Explore` 或 `general-purpose` subagent,主 context 只收摘要。主 agent 是指挥官不是苦力,长跑省 token 最大一招
+- **状态外置**:关键发现写 `GOALS.md § Discoveries`,每轮轨迹写 `progress.md`,不指望对话历史。主 context 过载时用 `/compact`,从这两份文件 + 最近 commit 重建继续跑
 
 **硬线**: 动手前自问"这一步在 **Mission** 下能找到归属吗?"
 - 能 → 做
@@ -115,11 +119,42 @@ Modify → Commit → Verify → Keep / Revert
 
 ---
 
+## 3.1 · progress.md 防膨胀(长跑必做)
+
+autopilot 每轮都要读 progress.md 末段取上下文,文件越长读 token 越贵。触发归档(任一即做):
+
+- 轮次 > 30
+- 文件 > 50KB
+
+**动作**:
+
+1. `mkdir -p progress-archive`(若无该目录)
+2. 新建 `progress-archive/round-<起>-<止>.md`,把第 1 ~ 第 (N-10) 轮整体切过去
+3. 主 `progress.md` 只留:
+   - **最近 10 轮**的完整记录
+   - **所有** HANDOFF 段(每次硬停留的)
+   - **所有** Mission 对齐自检行(§6 每 5 commit 那条)
+4. 归档随本轮其他改动一起 commit,message 加一段 `(+ progress 归档 round X-Y)`
+
+归档后主 progress.md 仍能独立读懂最近状态。旧轮次要回顾去翻 archive。
+
+---
+
 ## 4 · 自救机制
 
-没人接应 = 必须自己爬出来。规则:
+没人接应 = 必须自己爬出来。规则**从细到粗**,先试小颗粒:
 
-### 4.1 同错 pivot
+### 4.0 任务级快退(先于 4.1 / 4.2)
+
+**单一任务 / 单一文件 / 单一测试**连挂 **2 次** → 跳本任务,从 Success Criteria 挑下一条未完的:
+
+- progress.md 记:`skip: <task>, fail 2x <err>, 换到 <new task>`
+- 不 revert(没 revert 价值就白跑了,留 commit 痕迹)
+- 被跳的 criteria 追加 `[blocked: <err 一句话>]`,HANDOFF 时列入"未做项"
+
+**跟 4.1 的差异**: 4.0 是**任务级跳过**(换 criteria,成本低),4.1 是**方向级 pivot**(revert + 换候选,成本高)。4.0 不奏效再升 4.1,省 token。
+
+### 4.1 同错 pivot(方向级)
 
 - 同一验证连续失败 **3 次** → `git revert` 到上个稳定态 + 换候选方向(从 Success Criteria 挑另一条未完的)
 - pivot 时 progress.md 记:`pivot #N: <from X> → <to Y>, reason: <err>`
@@ -220,4 +255,7 @@ autopilot 模式下 agent **不做**:
 - [ ] progress.md 追加了?
 - [ ] 有 Discovery 要记吗?
 - [ ] 到第 5/10/15... commit 了吗?要不要做 Mission 对齐自检?
+- [ ] 当前任务有没有重活(全局搜 / 读长文件 / 外部研究 / 批量分析)要派 subagent?
+- [ ] progress.md 触发归档阈值了吗?(轮次 > 30 **或** 文件 > 50KB,§3.1)
+- [ ] 单任务 / 单文件 / 单测试挂 2 次了吗?(§4.0 跳本任务,不等 3 次)
 - [ ] 要不要硬停?(上限 / 达成 / 穷举 / 冲突)
