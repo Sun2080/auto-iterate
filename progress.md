@@ -1382,3 +1382,68 @@ refs: memory#revert 是强负反馈（第 4 次作正面闸用 · 防滑坡）·
 
 ---
 
+## Round 38 · 巡查轮 · 3 处 audit fix（Esc 描述 + 白/黑名单对称 + 行数漂）
+
+**Trigger**: 用户发「再巡查一轮」—— 明确要求 R36/R37 之后做一次 quality-assurance 扫。
+
+**Audit 范围**（6 点检查清单）:
+1. USAGE.md vs 官方 commands/interactive-mode 逐条核对
+2. 跨文件一致性（USAGE / README / iterate 对同一 API 描述）
+3. 相对链接和文件路径能否解析
+4. AGENT_MEMORY 限额注释 vs 实测计数
+5. templates/CLAUDE.md.append 有无过时引用
+6. R36/R37 带入的新 drift 扫一遍（30s / Esc / 文件数 / 跨引用）
+
+**发现 3 个真 bug/drift**:
+
+1. **USAGE.md L27 `Esc` 描述串了两件事**（真 bug）
+   - 原：`Esc` = 停 `/loop` 等待中的下一轮 / **取消当前生成**
+   - 官方 [interactive-mode](https://code.claude.com/docs/en/interactive-mode)：`Ctrl+C` = Cancel current input or generation；单独 `Esc` 只在 /loop 等待中 = 停下一轮
+   - R37 写这行时把两个键行为合并，是细节误解
+
+2. **README.md L113「不拉什么」漏 `USAGE.md`**（白/黑名单对称 bug）
+   - R37 新建 USAGE.md 在根，但 Step 1 的白/黑名单没更新
+   - 不是 runtime bug（Step 1 `cp -r` 只拷 standards/ + templates/，不拷根）
+   - 是文档完整性 bug —— 未来若有人手动 cp 根文件会拉错的相对链接
+   - 选 A（保守加黑名单）非选 B（改造给宿主用）：和 Decision 2「宿主只拉 standards/ + templates/」一致 + 避免 R32-old「host might want this」投机同族
+
+3. **AGENT_MEMORY.md L90 "~90 行" vs 实测 99 行**（Gotcha 8 边际漂移）
+   - 实际 USAGE.md 99 行 + `~90` 偏低 10%
+   - Gotcha 8 技术上允许 "~N" 泛化所以合规，但 "~100" 更准
+
+**Modify**:
+
+a) [USAGE.md L27](USAGE.md): `Esc` 行删「/ 取消当前生成」，改「（清空 pending wakeup）」表语义澄清
+b) [README.md L113](README.md): 「不拉什么」列表加 `USAGE.md`，附注「自用人类手册，拉进宿主会 ... 相对链接断」
+c) [AGENT_MEMORY.md L90](AGENT_MEMORY.md): Decision 4 Why 字段 "~90" → "~100"
+
+**Gotcha 10 三闸自检**:
+- 单轮净改：3 处共 ~3 行功能文字 + ~40 行 progress 条目 = ~43 行，远低于 +100 ✓
+- 无新文件 · 文件数仍 11 ✓
+- scope：纯 audit fix，不扩张（选 A 明确拒绝扩 scope） ✓
+- GOALS Non-Goals / Constraints 全过 ✓
+
+**§7 跑偏检查**: 归属 GOALS「自我迭代契约 · 用 iterate.md 迭代自己」；触发是用户显式"巡查"指令 ✓
+
+**Verify**:
+- [x] USAGE.md 99 行不变；Esc 行语义和官方对齐
+- [x] README.md 184 行（+0 净增，就地扩表述）
+- [x] AGENT_MEMORY 96 行不变（字数微改）
+- [x] 白/黑名单对称：白 `standards/` + `templates/` · 黑 `GOALS.md` · `AGENT_MEMORY.md` · `progress.md` · `USAGE.md` = 根文件全覆盖（4 个根文件中 4 个在黑名单，R38 补全）
+- [x] 文件数仍 11 · AGENT_MEMORY 限额 3/10/4 不变
+- [x] grep `30s` 活文档 0 处（除解释"向上舍入"的说明）· grep `Esc` 所有出现都限定在正确语义
+
+**Status**: Keep.
+
+**意义**:
+- **首个"零 bug-discovery 外部触发 → 仍有小 audit 收获"轮**。R36/R37 大改后不做巡查就入了 production 心态，用户一句「再巡查一轮」抓出 3 处 —— 证明 audit 轮不是仪式性的，真会找到东西
+- **Gotcha 10「选 A 拒扩 scope」再次落地**：发现 2 的选 A/B 路口，B 就是 R32-old 的"给宿主也用"投机。识别出来 = Gotcha 10 内化成反射
+- **白/黑名单对称性** 作为一种新的 audit 模式：新建根文件时**同时**更新黑名单，不让不对称累积
+- **R26 FROZEN 之后第 10 个增量加固轮**（R27-R38），全部真实驱动，无一 agent 自起
+
+**下一轮触发**: 无预定。候选信号：宿主实装反馈 / USAGE.md 用户点播 / 权威文档更新 / 新用户 ask。
+
+refs: memory#revert 是强负反馈（Gotcha 10 选 A 明确拒 B 扩 scope）· memory#硬编码数字必漂（Decision 4 "~90→~100" 微正）
+
+---
+

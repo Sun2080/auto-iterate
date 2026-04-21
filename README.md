@@ -110,7 +110,7 @@ rm -rf /tmp/auto-iterate
 - `standards/code.md` · `standards/iterate.md` —— 两份标准（必须）
 - `templates/GOALS.md.template` · `templates/CLAUDE.md.append` · `templates/AGENT_MEMORY.md.template` —— 模板（Step 2、3 会用）
 
-**不拉什么**：`GOALS.md` · `AGENT_MEMORY.md` · `progress.md` —— 这些是 auto-iterate **自身**的记忆，拉进宿主会污染。
+**不拉什么**：`GOALS.md` · `AGENT_MEMORY.md` · `progress.md` · `USAGE.md` —— 这些是 auto-iterate **自身**的记忆 / 自用人类手册，拉进宿主会污染或相对链接断。
 
 非 git-bash 环境（原生 PowerShell / cmd）下，agent 自行把 `git clone` / `cp -r` / `rm -rf` 替换成当前 shell 等价命令 —— 本项目**不做**平台适配逻辑（见 `GOALS.md` Constraints）。
 
