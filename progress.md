@@ -319,5 +319,37 @@ refs: memory#用户偏好极简口令-不要长句-prompt
 
 refs: memory#前几轮强制做一次外部参照 · external#shanraisshan/claude-code-best-practice
 
+---
+
+## Round 13 @ 2026-04-21 · 审计清单 · 中价值优化
+
+**Trigger**: 接 R12，处理 M1-M4（中价值 optimization）。L1-L2 按计划留后。
+
+**Modify**:
+
+**M1** · `README.md:59` —— PowerShell 备注只替换了 `cp -r` 一个命令，`rm -rf` `mkdir -p` 未覆盖。改为「非 git-bash 环境下 agent 自行适配命令，本项目不做平台适配」，和 `GOALS.md` Constraints 对齐。
+
+**M2** · `AGENT_MEMORY.md` 行数注释 `~100/200` 改为 `71/200`（实测 wc -l）。Patterns 2/15 · Gotchas 6/10 · Decisions 3/10 保持。
+
+**M3** · `README.md § 口令速查` 前加一行 blockquote 说明「前提：已完成 Step 1-4」。解决读者困惑：速查表假设装完、但读者还在 README 最上方看不到 Step。
+
+**M4 · 交叉引用** ：
+- `code.md` Part A §4 末尾加 "> 迭代循环里怎么落地：见 iterate.md §2.3 Verify"
+- `iterate.md §2.3` 末尾把 "见 code.md Part A §4" 扩为 "Goal-Driven Execution —— 这是同一原则在循环里的落地"
+两份 standards 原本只单向引用，现在互指，读者任一入口都能找到另一份。
+
+**Verify**:
+- [x] README 现在两个入口（速查 vs 消费）边界清晰
+- [x] AGENT_MEMORY 计数注释与实际一致（71/200）
+- [x] PowerShell note 不再误导
+- [x] code.md ↔ iterate.md 在验证主题上互引，无循环依赖
+- [x] grep `PowerShell` 结果仅剩 Step 1 内适配说明，无硬 OS 分支逻辑
+
+**Status**: **Keep**。审计闭环。剩余 L1（Round 6 STABLE 后续轮说明）、L2（progress.md.template）留到有真实需求再做。
+
+**R12+R13 合并效果**: 5 bug/强功能暴露 + 4 优化 = 9 处改动，涉及 5 个文件，0 新文件，0 破坏性改动。标准文件（code.md + iterate.md）合计 +~20 行，AGENT_MEMORY 零增长。
+
+refs: memory#\u5bbf\u4e3b-agent-\u53ea\u62c9-standards-templates-\u4e0d\u62c9\u6839-meta-\u6587\u4ef6
+
 
 

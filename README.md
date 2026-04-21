@@ -11,7 +11,9 @@
 
 ## 给人：口令速查（复制即可）
 
-装完之后，`CLAUDE.md` 已经指向 `iterate.md`，agent 开会话就懂协议。口令就很短：
+> **前提**：已完成下方「消费入口」Step 1-4（CLAUDE.md 已挂接 `iterate.md`、GOALS.md 已填）。装完之前请用第一行的首装口令。
+
+装完之后 agent 开会话就懂协议，口令很短：
 
 | 场景 | 口令 |
 |------|------|
@@ -56,7 +58,7 @@ rm -rf /tmp/auto-iterate
 
 **不拉什么**：`GOALS.md` · `AGENT_MEMORY.md` · `progress.md` —— 这些是 auto-iterate **自身**的记忆，拉进宿主会污染。
 
-Windows 纯 PowerShell 环境下把 `cp -r` 换成 `Copy-Item -Recurse`，其余同。
+非 git-bash 环境（原生 PowerShell / cmd）下，agent 自行把 `git clone` / `cp -r` / `rm -rf` 替换成当前 shell 等价命令 —— 本项目**不做**平台适配逻辑（见 `GOALS.md` Constraints）。
 
 ### Step 2 · 挂接到宿主 CLAUDE.md
 

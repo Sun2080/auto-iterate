@@ -68,6 +68,8 @@ enforcement: self (agent checks itself against these rules before declaring a ch
 
 完成时的自检：验证真跑过了吗？输出真的符合判据吗？「应该能跑」= 没跑 = 未完成。
 
+> **迭代循环里怎么落地**：见 [iterate.md §2.3 Verify](iterate.md)。每个 commit 一个机械验证，UI 改动必跑 Playwright。
+
 ---
 
 ## Part B · Opus 4.7 交互契约

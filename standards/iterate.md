@@ -121,7 +121,7 @@ Modify → Commit → Verify → Keep / Revert
   - `browser_console_messages` 看有无 runtime error
   编译过 + 类型过 ≠ UI 可用。4.7 有时会吐能编译但交互坏的代码 —— 必须跑。
 
-**不写验证 = 任务未完成**。见 [code.md](code.md) Part A §4。
+**不写验证 = 任务未完成**。见 [code.md Part A §4 Goal-Driven Execution](code.md) —— 这是同一原则在循环里的落地。
 
 ### 2.4 Keep / Revert
 - 验证通过 & 指标持平或改善 → **Keep**
