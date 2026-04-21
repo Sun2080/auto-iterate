@@ -1,10 +1,10 @@
 # Goals — auto-iterate
 
-> **Status**: Agent 从 2026-04-21 对话中抽取草案；经多轮实跑验证基本准确（本项目自身达成所有 Success Criteria）。正式人审待用户主动触发修订。
+> **Status**: Agent 从 2026-04-21 对话中抽取草案；经多轮自测后，前 4 条 Success Criteria 已实证，第 5 条（真实宿主触发停止分支）仍待外部验证。正式人审待用户主动触发修订。
 
 ## Mission
 
-轻量、可拉取的指导包。宿主项目（如量化交易系统）的 Claude Code agent 拉取本仓库后，获得「写好代码 + 高效自我迭代」的能力。
+轻量、可拉取的指导包。宿主项目（如量化交易系统）的 Claude Code agent 或 Codex agent 拉取本仓库后，获得「写好代码 + 高效自我迭代」的能力。
 
 本项目**只管方法论，不管业务目标**。
 
@@ -12,10 +12,10 @@
 
 宿主 agent 拉取本仓库后：
 
-- [ ] 读 `README.md` 即可知道下一步（≤ 2 分钟）
-- [ ] 能把 `standards/` 关联到宿主项目的 CLAUDE.md
-- [ ] 能按 `standards/iterate.md` 跑起 `Modify → Commit → Verify → Keep/Revert` 循环
-- [ ] 能维护 `AGENT_MEMORY.md` 不膨胀（≤ 200 行，35 条上限）
+- [x] 读 `README.md` 即可知道下一步（≤ 2 分钟）
+- [x] 能把 `standards/` 关联到宿主项目的 `CLAUDE.md` 或 `AGENTS.md`
+- [x] 能按 `standards/iterate.md` 跑起 `Modify → Commit → Verify → Keep/Revert` 循环
+- [x] 能维护 `AGENT_MEMORY.md` 不膨胀（≤ 200 行，35 条上限）
 - [ ] 遇到停止条件会停下问人，而非无限重试
 
 ## Non-Goals
@@ -28,7 +28,8 @@
 
 ## Constraints
 
-- **仓库小**：文件数 ≤ 10，根目录平铺 + `standards/` 一层子目录
+- **仓库小**：常驻文件 ≤ 12；归档文件按需增长，不计入常驻限额
+- **目录浅**：根目录平铺 + `standards/` / `templates/` / `progress-archive/` 三个一层目录
 - **升级**：宿主重拉即可，不做向后兼容、不做版本号 SemVer
 - **语言**：中文为主（用户母语）；关键术语保留英文
 - **依赖**：零运行时依赖。只是 Markdown 指导文档
