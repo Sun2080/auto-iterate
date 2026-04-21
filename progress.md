@@ -605,5 +605,41 @@ refs: memory#短任务用-loop-1m-借-prompt-cache-命中（本轮新增）
 
 refs: memory#前几轮强制做一次外部参照
 
+---
+
+## Round 21 @ 2026-04-21 · 快跑轮 · R20 自产漂移 + 章节号 / Pattern 格式 / 命令一致性
+
+**Trigger**: 用户「实战快跑」= 连跑 R21/R22/R23 实测快节拍 + 冲收敛 3/3。
+
+**本轮角度**:
+1. iterate.md 章节号连续性
+2. R19 新 Pattern §4.2 格式合规
+3. `/loop 1m` 命令文本跨文件一致性
+
+**Modify**:
+
+**M1** · `iterate.md §5` 表格第一行 `1-20 min` → `30s-20 min`。R20 自己改的表和自己注释「30s」不对齐（30s = 0.5min < 1min）。**R20 边修边引入新漂移**，R21 当场抓到。
+
+**未改**（扫描合规）:
+- 章节号 §1 / 1.1 / 1.2 / 2 / 2.1-4 / 3 / 4 / 4.1-5 / 5 / 5.1-2 / 6 / 7 / 8 / 9 / 10 / 11 —— 完全连续无跳跃
+- AGENT_MEMORY Pattern 3「短任务 `/loop 1m`」—— 标题 + **Why** + **How** 三行，过 §4.2 ✓
+- `/loop 1m` 跨 README 速查 / README Step 5 / iterate.md §5 / AGENT_MEMORY —— 四处完全一致
+
+**Verify**:
+- [x] §5 表格 `30s-20 min` 和注释 30s/5m/10m/20m 全部落入范围
+- [x] 章节号、格式、命令文本三条扫净
+- [x] 耗时：本轮实际 ~2 min（含 grep + 2 Edit + progress 追加）—— 正好是 1-2 min 档
+
+**Status**: **Keep**。
+
+**收敛判据**（R18「连续 3 轮零 bug 零缺口」）:
+- R20: 0 bug / 0 缺口 → 1/3
+- R21: **0 bug / 0 缺口** → 2/3（polish 不计入；M1 是漂移，不是 bug）
+- 还需 R22
+
+**元观察**: R20 修 R19 漂移，自己又引入新漂移（表 1-20 vs 注释 30s）。**边修边漏** 这种 meta-pattern 值得记吗？已有 Gotcha「改名类改动必须 grep 全仓」是同族。本轮不加新 Gotcha，但 R22 若再出现，升级为独立 Gotcha。
+
+refs: memory#改名类改动必须-grep-全仓再提交
+
 
 
