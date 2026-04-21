@@ -11,6 +11,25 @@ enforcement: self + filesystem (AGENT_MEMORY.md / progress log / git commits are
 
 ---
 
+## TL;DR（每轮只读这段；小回 / 大回 / 卡壳时才读全文）
+
+**循环**: Modify → Commit（**先于** verify）→ Verify → Keep / Revert
+
+**每轮入**: `GOALS.md` · `progress.md` 末 20 行 · `AGENT_MEMORY.md` · `git log -10`
+**每轮出**: 至少 1 commit · `progress.md` 追加一段 · 必要时更新 `AGENT_MEMORY.md`
+
+**前 3 轮**: 必做一次外部参照（§1.2），避免闭门造车
+
+**停下问人**: 连续 2 轮同错 / 连续 3 轮无 commit / 大回 30 轮 / 5 小时 / 目标达成 / 动作在 `GOALS.md` 找不到归属
+
+**反膨胀**: `AGENT_MEMORY.md` ≤ 200 行 · Patterns ≤ 15 · Gotchas ≤ 10 · Decisions ≤ 10 · 每条 ≤ 3 行（§4）
+
+**节律**: 10 min/轮 · 6 轮小回剪枝 · 30 轮大回归档
+
+**深读索引**: §1 契约 · §1.2 外部参照 · §2 核心循环 · §4 反膨胀 · §5 节律 · §6 停止 · §11 融入宿主
+
+---
+
 ## 1 · 每轮契约
 
 一轮 = 一次完整的「输入 → 动作 → 产出」。

@@ -42,6 +42,14 @@
 **Why**: 用户连续反馈「太长了」「必须这么说？」—— 装完后 CLAUDE.md 已挂接，agent 有协议上下文，口令可以短到 2-4 字。
 **How**: 对用户的操作性说明写成表格速查（2-4 字口令 + 场景），解释和理由塞在别处。不要要求用户复读完整 prompt。
 
+### 每轮只读 iterate.md 的 TL;DR，省 token
+**Why**: iterate.md 全文 ~320 行，每轮必读太贵。Round 10 顶部加了 TL;DR（~20 行），含循环 / 入出 / 停止 / 反膨胀 / 节律 / 深读索引。只有小回、大回、卡壳时才读全文。
+**How**: 常规轮只读 TL;DR + `GOALS.md` + `progress.md` 末 20 行 + `AGENT_MEMORY.md`。碰到歧义或节律切换点（6/30 轮边界）再展开对应 §。
+
+### 长循环里主动 /compact，吃 prompt cache TTL
+**Why**: Claude prompt cache 5 min TTL；连续多轮跑过 5 min 就冷启，iterate.md §9「无状态但迭代」就是这条的前提。主动 /compact 把历史压成摘要 + 下一轮靠文件重建 = 省 token 最大杠杆。
+**How**: 6 轮小回（§5.1）结束时默认 /compact；或单轮跑超 5 min 时预防性 compact。不要等 context 告警才做。
+
 ---
 
 ## Decisions
@@ -60,4 +68,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 2/15 · Gotchas 4/10 · Decisions 3/10 · 总行数约 84/200 -->
+<!-- 限额提示：Patterns 2/15 · Gotchas 6/10 · Decisions 3/10 · 总行数约 100/200 -->
