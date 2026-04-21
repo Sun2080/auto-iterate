@@ -418,5 +418,39 @@ refs: memory#改名类改动必须-grep-全仓再提交（本轮新增）
 
 refs: memory#改名类改动必须-grep-全仓再提交
 
+---
+
+## Round 16 @ 2026-04-21 · 第 4 次巡查 · 收敛逼近
+
+**Trigger**: 用户问「每轮都有 bug/优化项是否项目不成熟」→ 判据：连续 2-3 轮无新发现才算成熟。R15 虽无真 bug，但仍有漂移 + 缺口。再跑一轮看是否收敛。
+
+**Modify**:
+
+**D1** · `templates/AGENT_MEMORY.md.template` 限额注释「~40/200」→「36/200」。wc -l 实测，写死不再漂移。
+
+**M1** · `iterate.md` TL;DR 深读索引补 §7 跑偏。§7「绝不自己扩张目标」是重要停止判据，原索引遗漏；agent 只读 TL;DR 的常规轮会错过它。
+
+**未改**: 6 个主文件（code.md · iterate.md 主体 · README · GOALS · AGENT_MEMORY · CLAUDE.md.append · GOALS.md.template）通读无真 bug、无功能缺口、无残留。`AGENT_MEMORY.md` 里 3 处 `AGENTS.md` 是历史解释（Round 8 rename 的叙事），保留不改。
+
+**Verify**:
+- [x] template 计数器实测一致
+- [x] TL;DR 深读索引含 §7，顺序合理（§6→§7→§11）
+- [x] 全仓 grep `AGENTS\.md` 只剩「历史解释」和 progress 轮记录，无可改项
+
+**Status**: **Keep**。本轮发现量明显下降：0 真 bug、0 功能缺口、0 残留，仅 2 处 polish。
+
+**收敛判据**（用户关心的「项目成熟了吗」）:
+- R12: 3 bug + 4 优化
+- R13: 0 bug + 4 交叉引用 / 漂移
+- R14: 2 改名残留（真 bug）+ 1 meta-learning
+- R15: 1 功能缺口（真 bug）+ 2 交叉 + 2 漂移
+- **R16: 0 bug + 0 缺口 + 2 漂移** ← 本轮
+
+判据：连续 2 轮零新真问题 → 成熟。R15 仍有 1 个真功能缺口（README Step 3 矛盾），R16 零。再跑 R17 若仍零 → 满足「连续 2 轮零」，可正式 release。
+
+**下轮计划**: R17 最后一次巡查。若无真 bug + 无功能缺口 → 宣布 STABLE，不再主动跑巡查轮。
+
+refs: memory#前几轮强制做一次外部参照（类推：收敛判据）
+
 
 

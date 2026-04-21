@@ -26,7 +26,7 @@ enforcement: self + filesystem (AGENT_MEMORY.md / progress log / git commits are
 
 **节律**: 10 min/轮 · 6 轮小回剪枝 · 30 轮大回归档
 
-**深读索引**: §1 契约 · §1.1 Bootstrap · §1.2 外部参照 · §2 核心循环 · §4 反膨胀 · §5 节律 · §6 停止 · §11 融入宿主
+**深读索引**: §1 契约 · §1.1 Bootstrap · §1.2 外部参照 · §2 核心循环 · §4 反膨胀 · §5 节律 · §6 停止 · §7 跑偏 · §11 融入宿主
 
 ---
 
