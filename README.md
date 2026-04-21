@@ -3,7 +3,7 @@
 一个指导 Claude Code agent「写好代码、高效自我迭代」的轻量知识包。
 
 - **Part 1 · 写好代码** —— Karpathy 4 原则 + Opus 4.7 交互契约 → [`standards/code.md`](standards/code.md)
-- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 + 参数化节拍（`/loop 1m`-`20m`） → [`standards/iterate.md`](standards/iterate.md)
+- **Part 2 · 高效迭代** —— AutoResearch 循环 + AGENT_MEMORY.md 复利机制 + 多维停止条件 + 参数化节拍（动态 `/loop` / 固定 `30s`-`20m`） → [`standards/iterate.md`](standards/iterate.md)
 
 不教业务目标、不管基础设施、不做通用 framework。只讲「怎么工作」。
 
@@ -84,27 +84,32 @@ rm -rf /tmp/auto-iterate
 安装完成后告诉用户：
 1. 两份标准已挂接（路径告知）
 2. `GOALS.md` + `AGENT_MEMORY.md` 模板已复制就位；`GOALS.md` 需要人填 Mission / Success Criteria / Non-Goals / Constraints
-3. 填完后用户说 `下一轮`（手动）或 `/loop Xm 下一轮`（自动，见速查表档位）即可进入 `iterate.md` 的循环
+3. 填完后用户三档任选：`下一轮`（手动）· `/loop 下一轮`（动态，跑完立即起）· `/loop Xm 下一轮`（固定周期），详见速查表
 
 **不要**用户没填 GOALS.md 就自己开始跑 —— 那是 §7 跑偏。
 
 ### Step 5 · 如何真的跑起循环
 
-GOALS.md 填完、用户说「开始」后，有两种运行方式：
+GOALS.md 填完、用户说「开始」后，三种节拍可选（**推荐度递减**）：
 
-**手动节拍**（推荐给早期 / 调试）：
-用户每次说「下一轮」时，agent 按 `iterate.md` 跑一轮（Modify → Commit → Verify → Keep/Revert + progress.md 追加）。
+**① 手动节拍**（早期 / 调试 / 大改动）：
+用户每次说「下一轮」时，agent 按 `iterate.md` 跑一轮（Modify → Commit → Verify → Keep/Revert + progress.md 追加）。每轮节奏完全人控。
 
-**自动节拍**（稳定后可用）：
-用户在 Claude Code 里用 `/loop`：
+**② 动态 `/loop`**（稳定后连续跑 · **推荐首选**）：
+```
+/loop 按 .claude/standards/iterate.md 跑下一轮；严格遵守 §6 停止条件
+```
+不带时间参数。Claude 每轮结束**自选** 1min-1h 下次时间 —— 跑完立即起下一轮，不堆积、无并发隐患。内部走 `ScheduleWakeup`，是 Claude Code 原生机制。
+
+**③ 固定周期 `/loop Xm`**（需要精确节拍时）：
 ```
 /loop 10m 按 .claude/standards/iterate.md 跑下一轮；严格遵守 §6 停止条件
 ```
-每 10 分钟触发一轮。`iterate.md §6` 任一停止条件命中会自动停下问人。
+每 X 分钟固定触发。官方是**串行等待 + 跳过补偿**（上一轮没跑完就排队等，不并发；等期间又到 tick 则跳过不补打）—— 不会堆积，但短任务会有空转间隔。周期选择：大任务 5-10m、小任务 1m 或 30s（prompt cache 5min TTL 下短周期几乎全命中，更省 token）。
 
-**短任务用小周期**：如果一轮实际只用 1-2 min，把 `10m` 换成 `1m` 或 `30s` —— prompt cache 5min TTL 下短周期几乎全命中，比长周期反而省 token（见速查表）。
+**三档共性**：`iterate.md §6` 任一停止条件命中都会自动停下问人。
 
-**不要自己起 `CronCreate` 或开 `ScheduleWakeup`**。节奏由用户控制，agent 只管好每一轮内部的质量。
+**硬线**：**不要自己起 `CronCreate`**。动态 `/loop` 内部用 `ScheduleWakeup` 是用户主动触发后 agent 在 `/loop` 框架内自调速，不算违反；但在**没有用户 `/loop` 触发**的场景下 agent 私自起调度器 = 越界。
 
 **30 轮大回停下后想过夜跑**：用户可用 `/schedule` 注册 cron trigger 定时重启下一轮（`iterate.md §6` 末段）。agent 仍不自拨。
 
