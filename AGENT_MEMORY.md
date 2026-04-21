@@ -43,7 +43,7 @@
 **How**: 对用户的操作性说明写成表格速查（2-4 字口令 + 场景），解释和理由塞在别处。不要要求用户复读完整 prompt。
 
 ### 每轮只读 iterate.md 的 TL;DR，省 token
-**Why**: iterate.md 全文 ~320 行，每轮必读太贵。Round 10 顶部加了 TL;DR（~20 行），含循环 / 入出 / 停止 / 反膨胀 / 节律 / 深读索引。只有小回、大回、卡壳时才读全文。
+**Why**: iterate.md 全文远大于 TL;DR（~20 行），每轮必读代价高。Round 10 顶部加了 TL;DR，含循环 / 入出 / 停止 / 反膨胀 / 节律 / 深读索引。只有小回、大回、卡壳时才读全文。
 **How**: 常规轮只读 TL;DR + `GOALS.md` + `progress.md` 末 20 行 + `AGENT_MEMORY.md`。碰到歧义或节律切换点（6/30 轮边界）再展开对应 §。
 
 ### 长循环里主动 /compact，吃 prompt cache TTL
@@ -72,4 +72,4 @@
 
 ---
 
-<!-- 限额提示：Patterns 2/15 · Gotchas 7/10 · Decisions 3/10 · 总行数 76/200 -->
+<!-- 限额提示：Patterns 2/15 · Gotchas 7/10 · Decisions 3/10 · 总行数 75/200 -->

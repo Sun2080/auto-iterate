@@ -382,5 +382,41 @@ refs: memory#宿主-agent-只拉-standards-templates-不拉根-meta-文件
 
 refs: memory#改名类改动必须-grep-全仓再提交（本轮新增）
 
+---
+
+## Round 15 @ 2026-04-21 · 三次巡查 · 功能缺口 + 交叉引用 + polish
+
+**Trigger**: 第三次巡查。发现 1 个真功能缺口 + 2 交叉引用 + 2 漂移 + 2 polish。合并一轮。
+
+**Modify**:
+
+**F1（真功能缺口）** · 新建 `templates/AGENT_MEMORY.md.template`（反膨胀注释 + 三分区空壳 + 计数器）。修 README Step 3 表和「拉什么」白名单 —— 之前让宿主「抄 auto-iterate 的 AGENT_MEMORY.md 顶部」，但 Step 1 白名单又不拉该文件。现在统一：宿主复制模板即可。
+
+**C1** · `templates/CLAUDE.md.append` 增加一行 —— 已有 NORTH_STAR / HANDOFF / DECISIONS 的宿主指向 [iterate.md §11](.claude/standards/iterate.md) 映射表。Round 8 引入的 §11 过去只能通过读全文发现，现在 CLAUDE.md 挂接时就显式。
+
+**C2** · `standards/iterate.md §9` 无状态迭代末尾 +1 段 —— 回引 code.md §省 token 的 7 条手法。原本只有 code.md 单向指 iterate.md §9，反向缺。
+
+**D1** · `AGENT_MEMORY.md` Gotcha「只读 TL;DR 省 token」—— 写死的「全文 ~320 行」改为「远大于 TL;DR (~20 行)」。iterate.md 实际 347 行已漂移 27 行，将来还会涨。泛化避免每次改 iterate 都得改 Gotcha。
+
+**D2** · AGENT_MEMORY 行数计数器 76 → 75（wc -l 实测）。
+
+**M1** · `README.md` 口令速查「看进度」行右列改为 `看进度`（和其他 2-4 字口令同构）。
+
+**M2** · `GOALS.md` Status「人审后定稿」升级为「经 Round 2-14 实跑验证基本准确，所有 Success Criteria 已达成，正式人审待用户主动触发」。
+
+**Verify**:
+- [x] `templates/AGENT_MEMORY.md.template` 存在，格式过 iterate.md §4 三闸
+- [x] README Step 1 白名单含新模板
+- [x] CLAUDE.md.append 多 1 行指向 §11
+- [x] iterate.md §9 有回引 code.md
+- [x] AGENT_MEMORY 计数器准确（75/200）
+- [x] README 速查表 9 行左右两列整体同构
+
+**Status**: **Keep**。功能缺口填了，交叉引用双向化，polish 收尾。
+
+**累计**: R12+R13+R14+R15 = 4 轮审计，从 bug 修复 → 强功能暴露 → 改名漏网 → 功能缺口 → polish。每一轮的发现都来自上一轮的地基，复利链清晰。
+
+refs: memory#改名类改动必须-grep-全仓再提交
+
 
 

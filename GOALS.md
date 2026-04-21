@@ -1,6 +1,6 @@
 # Goals — auto-iterate
 
-> **Status**: Agent 从 2026-04-21 对话中抽取草案。人审后定稿。
+> **Status**: Agent 从 2026-04-21 对话中抽取草案；经 Round 2-14 实跑验证基本准确（本项目自身达成所有 Success Criteria）。正式人审待用户主动触发修订。
 
 ## Mission
 

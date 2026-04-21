@@ -10,6 +10,7 @@
 
 - **动手前**读 [.claude/standards/code.md](.claude/standards/code.md) —— Karpathy 4 原则 + Opus 4.7 交互契约
 - **开始迭代循环前**读 [.claude/standards/iterate.md](.claude/standards/iterate.md) —— 核心循环、复利机制、停止条件
+- **本项目已有自己的迭代约定**（NORTH_STAR / HANDOFF / DECISIONS 等）？读 [iterate.md §11 融入宿主已有约定](.claude/standards/iterate.md)，按角色映射表整合，不要两套并维护
 
 ### 本项目的迭代记忆
 

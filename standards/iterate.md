@@ -278,6 +278,8 @@ STOP @ round N · reason: <维度>
 
 **为什么**：长会话 token 通胀快、注意力稀释、缓存不友好。无状态迭代可以永远跑下去。
 
+**具体省 token 操作**：见 [code.md §省 token 的操作守则](code.md) —— prompt cache 前置、/compact 时机、并行 Read 等 7 条手法。
+
 ---
 
 ## 10 · 宿主项目需要提供的文件
