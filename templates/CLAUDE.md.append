@@ -13,7 +13,10 @@
 
 ### Autopilot · 无人参与
 
-用户消息以 `自主:` / `自主跑:` / `自主模式:` / `托管:` 开头(或明说"放手做"、"无人参与"、"autopilot")时,**加载** [.claude/autopilot.md](.claude/autopilot.md),按其协议执行:
+用户消息含 `自动迭代` / `自动跑` / `自主跑` / `托管` / `autopilot` 触发词时,**加载** [.claude/autopilot.md](.claude/autopilot.md),按其协议执行:
+
+- 常态:`自动迭代 <上限>` —— Mission 从 GOALS.md 读
+- 首启:`自动迭代:<mission>,限 <上限>` —— inline Mission,agent 自建 GOALS.md
+- 上限必给(时间 / 绝对时间 / commit / 预算任一),否则不启动
 - Mission 是唯一硬线(由人给),Success Criteria / Non-Goals 允许首轮 bootstrap 自填
-- 必须带上限(时间 / commit / 预算任一),否则不启动
 - 硬停时写 HANDOFF 到 progress.md 尾,**不**续 cron / ScheduleWakeup
