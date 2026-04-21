@@ -570,5 +570,40 @@ refs: memory#前几轮强制做一次外部参照
 
 refs: memory#短任务用-loop-1m-借-prompt-cache-命中（本轮新增）
 
+---
+
+## Round 20 @ 2026-04-21 · 第 6 次巡查 · R19 快节拍的 downstream 一致性
+
+**Trigger**: 用户说「再巡查一轮」。R19 引入 `/loop 1m` 档后，扫 downstream 是否跟进。
+
+**本轮角度**（之前未做）:
+1. R19 新文字自洽性
+2. README Step 5 vs 新速查 是否矛盾
+3. iterate.md §5 / §9 vs code.md §省 token 是否重复
+
+**Modify**:
+
+**M1** · README Step 5 自动节拍段末加一句「短任务用小周期」，点明 `/loop 10m` 示例不是硬性、1-2min 任务应用 `1m` / `30s`。原示例只给 10m 会把读者锚在错档位。
+
+**M2** · `iterate.md §5` 节律表第一行 `10 min` → `1-20 min（按任务规模，见下）`。原写死 10m 和注释"参数化"矛盾，且和新档位 `/loop 1m` 脱节。
+
+**未改**:
+- §5 注释 vs code.md §省 token：互补不重复（§5 是短轮用 1m 命中 cache；code.md 是长轮用 /compact 对抗失效，**两种方向都 5min TTL**）
+- §9 "每轮冷启动" vs R19 "cache 命中"：词面冲突实则两层概念 —— §9 是**文件状态冷启**（不靠消息记忆），R19 是 **prompt cache 物理命中**。agent 每轮仍重读入口四文件（§1），但这些文件若在 cache 前部就命中，不是真 I/O。读者一般不会混淆。不改。
+
+**Verify**:
+- [x] README Step 5 10m 例子后有 1m 脚注，引用速查表
+- [x] §5 表格第一行 `1-20 min`，和注释"5min/20min/1min"范围一致
+- [x] grep 全仓 `10 min/轮` 无其他硬写死点
+
+**Status**: **Keep**。本轮 0 真 bug + 0 功能缺口 + 2 一致性 polish。
+
+**收敛判据**（R18 定「连续 3 轮真 bug + 功能缺口双零」）:
+- R19: 功能轮，不计
+- R20: **零 bug + 零缺口** → 收敛计数 **1 / 3**
+- 还需 R21 / R22 继续零
+
+refs: memory#前几轮强制做一次外部参照
+
 
 
